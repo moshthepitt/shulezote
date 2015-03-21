@@ -25,7 +25,7 @@ class County(PlaceModel):
 
 class District(PlaceModel):
     province = models.ForeignKey(Province, verbose_name=_("Province"))
-    slug = AutoSlugField(populate_from='name', unique_with='provice__name')
+    slug = AutoSlugField(populate_from='name', unique_with='province__name')
 
 class Division(PlaceModel):
     district = models.ForeignKey(District, verbose_name=_("District"))

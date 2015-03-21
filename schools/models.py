@@ -34,7 +34,7 @@ class School(models.Model):
         (GIRLS, _('Girls')),
         (MIXED, _('Mixed')),
     )
-    #day or borading
+    #day or boarding
     DAY = '1'
     BOARDING = '2'
     DAY_AND_BOARDING = '3'
@@ -48,7 +48,7 @@ class School(models.Model):
     SPECIAL = '2'
     INTEGRATED = '3'
     STUDENT_NEED_CHOICES = (
-        (ORDINARY, _('Ordnirary')),
+        (ORDINARY, _('Ordinary')),
         (SPECIAL, _('Special')),
         (INTEGRATED, _('Integrated')),
     )
@@ -88,7 +88,7 @@ class School(models.Model):
     division = models.ForeignKey(Division, verbose_name=_("Division"), blank=True, null=True, default=None)
     location = models.ForeignKey(Location, verbose_name=_("Location"), blank=True, null=True, default=None)
     sub_location = models.ForeignKey(SubLocation, verbose_name=_("Sub Location"), blank=True, null=True, default=None)
-    school_sone = models.ForeignKey(SchoolZone, verbose_name=_("School Zone"), blank=True, null=True, default=None)
+    school_zone = models.ForeignKey(SchoolZone, verbose_name=_("School Zone"), blank=True, null=True, default=None)
 
     # Geo Django field to store a point
     coordinates = models.PointField(_("Coordinates"), null=False, blank=False, help_text=_("Represented as (longitude, latitude)"))

@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from facts.models import Fact
+
+class FactAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Fact,FactAdmin)

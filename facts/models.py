@@ -5,7 +5,7 @@ from schools.models import School
 from facilities.models import Facility
 from staff.models import Staff
 
-class Facts(models.Model):
+class Fact(models.Model):
     """
     Stores facts about a school as at a certain period
     The period essentially only tracks the year, for example the initial data comes from 2007

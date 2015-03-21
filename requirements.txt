@@ -2,6 +2,7 @@ Django==1.7.5
 argparse==1.2.1
 django-allauth==0.19.1
 django-appconf==1.0.1
+django-autoslug==1.7.2
 django-cacheops==2.3
 django-compressor==1.4
 django-crispy-forms==1.4.0
@@ -11,6 +12,7 @@ django-suit==0.2.12
 django-suit-redactor==0.0.2
 funcy==1.4
 oauthlib==0.7.2
+psycopg2==2.6
 pyinotify==0.9.5
 python-openid==2.2.5
 pytz==2014.10

@@ -41,9 +41,15 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.humanize',
+    'django.contrib.gis',
     #custom
     'core',
     'users',
+    'schools',
+    'places',
+    'staff',
+    'facts',
+    'facilities',
     #third party
     'allauth',
     'allauth.account',
@@ -54,8 +60,9 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'pagination',
     'compressor',
-    'cacheops',
+    # 'cacheops',
     'suit_redactor',
+    'autoslug',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -142,19 +149,19 @@ PAGINATION_DEFAULT_PAGINATION = 20
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
 
 #CACHE OPS
-CACHEOPS_REDIS = {
-    'host': 'localhost', # redis-server is on same machine
-    'port': 6379,        # default redis port
-    'db': 2,             # SELECT non-default redis database
-                         # using separate redis db or redis instance
-                         # is highly recommended
-    'socket_timeout': 3,
-}
-CACHEOPS_DEGRADE_ON_FAILURE = True
-CACHEOPS = {
-    #automatically cache everything
-    '*.*': ('all', 60*10),
-}
+# CACHEOPS_REDIS = {
+#     'host': 'localhost', # redis-server is on same machine
+#     'port': 6379,        # default redis port
+#     'db': 2,             # SELECT non-default redis database
+#                          # using separate redis db or redis instance
+#                          # is highly recommended
+#     'socket_timeout': 3,
+# }
+# CACHEOPS_DEGRADE_ON_FAILURE = True
+# CACHEOPS = {
+#     #automatically cache everything
+#     '*.*': ('all', 60*10),
+# }
 
 try:
    from local_settings import *

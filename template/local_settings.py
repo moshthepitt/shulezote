@@ -9,9 +9,11 @@ SECRET_KEY = 'hwokhV3;N5"E\=vV(t&_D@Yxn>CwPpuB=P\Qt8xF#j@E6)Q3:4.:@$+ox[Z!lQR'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+         'NAME': 'shulezote',
+         'USER': 'shulezote',
+         'PASSWORD': 'shulezote',
+     }
 }
 
 #Emails

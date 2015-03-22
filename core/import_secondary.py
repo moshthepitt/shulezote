@@ -13,7 +13,7 @@ from facilities.models import Facility, FacilityRecord
 from places.models import County, Constituency, Province, District
 from places.models import Division, Location, SubLocation, SchoolZone
 
-def get_level(data):
+def get_ownership(data):
     if data == "PRIVATE":
         return School.PRIVATE
     return School.PUBLIC
@@ -29,7 +29,7 @@ def get_sponsor(data):
         return School.NGO
     elif data == "PRIVATE INDIVIDUAL":
         return School.PRIVATE_INDIVIDUAL
-    return School.GOVERNMENT
+    return School.NOT_KNOWN
 
 def get_student_gender(data):
     if data == "BOYS ONLY":
@@ -37,7 +37,7 @@ def get_student_gender(data):
     elif data == "GIRLS ONLY":
         return School.GIRLS
     else:
-        return School.MIXED
+        return School.NOT_KNOWN
 
 def get_school_type(data):
     if data== "DAY ONLY":
@@ -46,7 +46,7 @@ def get_school_type(data):
         return School.BOARDING
     elif data== "DAY & BOARDING":
         return School.DAY_AND_BOARDING
-    return School.DAY
+    return School.NOT_KNOWN
 
 def get_student_needs(data):
     if data == "ORDINARY":
@@ -69,7 +69,8 @@ def import_secondary_schools():
                 school.code = row[0].strip()
                 school.name = row[1].strip()
                 school.address = row[2].strip()
-                school.level = get_level(row[3].strip())
+                school.level = School.SECONDARY
+                school.ownership = get_ownership(row[3].strip())
                 school.sponsor = get_sponsor(row[4].strip())
                 school.student_gender = get_student_gender(row[5].strip())
                 school.school_type = get_school_type(row[6].strip())

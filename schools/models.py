@@ -11,6 +11,8 @@ class School(models.Model):
     """
     This model stores information about schools
     """
+    #N/A
+    NOT_KNOWN = "Z"
     #schoo level
     PRIMARY = '1'
     SECONDARY = '2'
@@ -33,6 +35,7 @@ class School(models.Model):
         (BOYS, _('Boys')),
         (GIRLS, _('Girls')),
         (MIXED, _('Mixed')),
+        (NOT_KNOWN, _("N/A")),
     )
     #day or boarding
     DAY = '1'
@@ -42,6 +45,7 @@ class School(models.Model):
         (DAY, _('Day')),
         (BOARDING, _('Boarding')),
         (DAY_AND_BOARDING, _('Day & Boarding')),
+        (NOT_KNOWN, _("N/A")),
     )
     #student needs
     ORDINARY = '1'
@@ -64,6 +68,7 @@ class School(models.Model):
         (COMMUNITY, _('Community')),
         (NGO, _('NGO/CBO')),
         (PRIVATE_INDIVIDUAL, _('Private Individual')),
+        (NOT_KNOWN, _("N/A")),
     )
 
     created_on = models.DateTimeField(_("Created on"), auto_now_add=True)
@@ -73,10 +78,10 @@ class School(models.Model):
     slug = AutoSlugField(populate_from='name', unique=True)
     address = models.CharField(_("Address"), max_length=255, blank=True)
     level = models.CharField(_("Level"), max_length=1, choices=LEVEL_CHOICES, blank=False, help_text=_("Primary or secondary school"))
-    school_type = models.CharField(_("School Type"), max_length=1, choices=TYPE_CHOICES, default=DAY, help_text=_("Day, Boarding or Both?"))
-    student_gender = models.CharField(_("Student Gender"), max_length=1, choices=GENDER_CHOICES, default=MIXED, help_text=_("Boys school, Girls school, or mixed"))
+    school_type = models.CharField(_("School Type"), max_length=1, choices=TYPE_CHOICES, default=NOT_KNOWN, help_text=_("Day, Boarding or Both?"))
+    student_gender = models.CharField(_("Student Gender"), max_length=1, choices=GENDER_CHOICES, default=NOT_KNOWN, help_text=_("Boys school, Girls school, or mixed"))
     ownership = models.CharField(_("Ownership"), max_length=1, choices=OWNERSHIP_CHOICES, default=PUBLIC, help_text=_("Private or public"))
-    sponsor = models.CharField(_("School Sponsor"), max_length=1, choices=SPONSOR_CHOICES, default=GOVERNMENT)
+    sponsor = models.CharField(_("School Sponsor"), max_length=1, choices=SPONSOR_CHOICES, default=NOT_KNOWN)
     student_needs = models.CharField(_("Student Needs"), max_length=1, choices=STUDENT_NEED_CHOICES, default=ORDINARY, help_text=_("Ordinary, Special or Integrated"))
     is_active = models.BooleanField(_('Active'), default=True,
             help_text=_('Designates whether this school is active.'))

@@ -16,6 +16,7 @@ class PlaceModel(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ['name']
 
 class Province(PlaceModel):
     slug = AutoSlugField(populate_from='name', unique=True)

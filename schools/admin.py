@@ -4,6 +4,6 @@ from django.contrib.gis import admin
 from schools.models import School
 
 class SchoolAdmin(admin.GeoModelAdmin):
-    pass
+    list_filter = ['level']
 
 admin.site.register(School,SchoolAdmin)

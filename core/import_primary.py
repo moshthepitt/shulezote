@@ -54,9 +54,9 @@ def get_student_needs(data):
     if data == "ORDINARY":
         return School.ORDINARY
     elif data == "INTEGRATED":
-        return School.SPECIAL
-    elif data == "SPECIAL SCHOOL":
         return School.INTEGRATED
+    elif data == "SPECIAL SCHOOL":
+        return School.SPECIAL
     return School.ORDINARY
 
 def import_primary_schools():
@@ -77,90 +77,92 @@ def import_primary_schools():
                 school.student_needs = get_student_needs(row[6].strip())
 
                 #location
-                province,created = Province.objects.get_or_create(name=row[28].strip())
-                school.province = province
-                county,created = County.objects.get_or_create(name=row[29].strip())
-                school.county = county
-                if row[33]:
-                    constituency, created = Constituency.objects.get_or_create(name=row[33].strip(), county=county)
-                    school.constituency =  constituency
-                if row[30]:
-                    district, created = District.objects.get_or_create(name=row[30].strip(), province=province)
-                    school.district = district
-                if row[31]:
-                    division, created = Division.objects.get_or_create(name=row[31].strip(), district=district)
-                    school.division = division
-                if row[32]:
-                    location, created = Location.objects.get_or_create(name=row[32].strip(), division=division)
-                    school.location = location
+                if row[29]:
+                    county,created = County.objects.get_or_create(name=row[29].strip())
+                    school.county = county
+                    province,created = Province.objects.get_or_create(name=row[28].strip())
+                    school.province = province
 
-                if row[34]:
-                    coord = row[34].split(",")
-                    x = float(coord[0][1:])
-                    y = float(coord[1][1:-2])
-                    school.coordinates = Point(y,x)
+                    if row[33]:
+                        constituency, created = Constituency.objects.get_or_create(name=row[33].strip(), county=county)
+                        school.constituency =  constituency
+                    if row[30]:
+                        district, created = District.objects.get_or_create(name=row[30].strip(), province=province)
+                        school.district = district
+                    if row[31]:
+                        division, created = Division.objects.get_or_create(name=row[31].strip(), district=district)
+                        school.division = division
+                    if row[32]:
+                        location, created = Location.objects.get_or_create(name=row[32].strip(), division=division)
+                        school.location = location
 
-                school.save()
+                    if row[34]:
+                        coord = row[34].split(",")
+                        x = float(coord[0][1:])
+                        y = float(coord[1][1:-2])
+                        school.coordinates = Point(y,x)
 
-                #facilities
-                facility1, created = Facility.objects.get_or_create(name="Toilets")
-                facility2, created = Facility.objects.get_or_create(name="Classrooms")
-                facility3, created = Facility.objects.get_or_create(name="Enrollment")
+                    school.save()
 
-                facility_record1, created = FacilityRecord.objects.get_or_create(facility=facility1, school=school, period=period, boys=row[11].strip(),
-                    girls=row[12].strip(), total=row[13].strip())
-                facility_record3, created = FacilityRecord.objects.get_or_create(facility=facility3, school=school, period=period, boys=row[15].strip(),
-                    girls=row[16].strip(), total=row[17].strip())
+                    #facilities
+                    facility1, created = Facility.objects.get_or_create(name="Toilets")
+                    facility2, created = Facility.objects.get_or_create(name="Classrooms")
+                    facility3, created = Facility.objects.get_or_create(name="Enrollment")
+
+                    facility_record1, created = FacilityRecord.objects.get_or_create(facility=facility1, school=school, period=period, boys=row[11].strip(),
+                        girls=row[12].strip(), total=row[13].strip())
+                    facility_record3, created = FacilityRecord.objects.get_or_create(facility=facility3, school=school, period=period, boys=row[15].strip(),
+                        girls=row[16].strip(), total=row[17].strip())
 
 
-                #staff
-                if row[18]:
-                    staff1, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.TSC_MALE,
-                        number=row[18].strip(), is_teacher=True)
-                if row[19]:
-                    staff2, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.TSC_FEMALE,
-                        number=row[19].strip(), is_teacher=True)
-                if row[20]:
-                    staff3, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.LOCAL_MALE,
-                        number=row[20].strip(), is_teacher=True)
-                if row[21]:
-                    staff4, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.LOCAL_FEMALE,
-                        number=row[21].strip(), is_teacher=True)
-                if row[22]:
-                    staff5, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.PTA_MALE,
-                        number=row[22].strip(), is_teacher=True)
-                if row[23]:
-                    staff6, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.PTA_FEMALE,
-                        number=row[23].strip(), is_teacher=True)
-                if row[24]:
-                    staff7, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.OTHER_MALE,
-                        number=row[24].strip(), is_teacher=True)
-                if row[25]:
-                    staff8, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.OTHER_FEMALE,
-                        number=row[25].strip(), is_teacher=True)
-                if row[26]:
-                    staff9, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.NON_TEACHING_MALE,
-                        number=row[26].strip(), is_teacher=False)
-                if row[27]:
-                    staff10, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.NON_TEACHING_MALE,
-                        number=row[27].strip(), is_teacher=False)
+                    #staff
+                    if row[18]:
+                        staff1, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.TSC_MALE,
+                            number=row[18].strip(), is_teacher=True)
+                    if row[19]:
+                        staff2, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.TSC_FEMALE,
+                            number=row[19].strip(), is_teacher=True)
+                    if row[20]:
+                        staff3, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.LOCAL_MALE,
+                            number=row[20].strip(), is_teacher=True)
+                    if row[21]:
+                        staff4, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.LOCAL_FEMALE,
+                            number=row[21].strip(), is_teacher=True)
+                    if row[22]:
+                        staff5, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.PTA_MALE,
+                            number=row[22].strip(), is_teacher=True)
+                    if row[23]:
+                        staff6, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.PTA_FEMALE,
+                            number=row[23].strip(), is_teacher=True)
+                    if row[24]:
+                        staff7, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.OTHER_MALE,
+                            number=row[24].strip(), is_teacher=True)
+                    if row[25]:
+                        staff8, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.OTHER_FEMALE,
+                            number=row[25].strip(), is_teacher=True)
+                    if row[26]:
+                        staff9, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.NON_TEACHING_MALE,
+                            number=row[26].strip(), is_teacher=False)
+                    if row[27]:
+                        staff10, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.NON_TEACHING_MALE,
+                            number=row[27].strip(), is_teacher=False)
 
-                #facts
-                if row[7]:
-                    fact2, created = Fact.objects.get_or_create(name="Pupil Teacher Ratio", period=period, school=school,
-                        value=row[7].strip())
-                if row[8]:
-                    fact1, created = Fact.objects.get_or_create(name="Pupil Classroom Ratio", period=period, school=school,
-                        facility=facility2, value=row[8].strip())
-                if row[9]:
-                    fact4, created = Fact.objects.get_or_create(name="Pupil Toilet Ratio", period=period, school=school,
-                        facility=facility1, value=row[9].strip())
-                if row[10]:
-                    fact5, created = Fact.objects.get_or_create(name="Total Number of Classrooms", period=period, school=school,
-                        facility=facility2, value=row[10].strip())
-                if row[14]:
-                    fact5, created = Fact.objects.get_or_create(name="Teachers Toilets", period=period, school=school,
-                        facility=facility1, value=row[14].strip())
+                    #facts
+                    if row[7]:
+                        fact2, created = Fact.objects.get_or_create(name="Pupil Teacher Ratio", period=period, school=school,
+                            value=row[7].strip())
+                    if row[8]:
+                        fact1, created = Fact.objects.get_or_create(name="Pupil Classroom Ratio", period=period, school=school,
+                            facility=facility2, value=row[8].strip())
+                    if row[9]:
+                        fact4, created = Fact.objects.get_or_create(name="Pupil Toilet Ratio", period=period, school=school,
+                            facility=facility1, value=row[9].strip())
+                    if row[10]:
+                        fact5, created = Fact.objects.get_or_create(name="Total Number of Classrooms", period=period, school=school,
+                            facility=facility2, value=row[10].strip())
+                    if row[14]:
+                        fact5, created = Fact.objects.get_or_create(name="Teachers Toilets", period=period, school=school,
+                            facility=facility1, value=row[14].strip())
 
 
 

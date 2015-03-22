@@ -36,6 +36,8 @@ def get_student_gender(data):
         return School.BOYS
     elif data == "GIRLS ONLY":
         return School.GIRLS
+    elif data == "MIXED":
+        return School.MIXED
     else:
         return School.NOT_KNOWN
 
@@ -52,9 +54,9 @@ def get_student_needs(data):
     if data == "ORDINARY":
         return School.ORDINARY
     elif data == "INTEGRATED":
-        return School.SPECIAL
-    elif data == "SPECIAL SCHOOL":
         return School.INTEGRATED
+    elif data == "SPECIAL SCHOOL":
+        return School.SPECIAL
     return School.ORDINARY
 
 def import_secondary_schools():

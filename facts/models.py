@@ -5,7 +5,9 @@ from schools.models import School
 from facilities.models import Facility
 from staff.models import Staff
 
+
 class Fact(models.Model):
+
     """
     Stores facts about a school as at a certain period
     The period essentially only tracks the year, for example the initial data comes from 2007
@@ -19,8 +21,9 @@ class Fact(models.Model):
     value = models.CharField(_("Fact Value"), max_length=255, blank=False)
     period = models.DateField(_("Period"))
     school = models.ForeignKey(School, verbose_name=_("School"))
-    facility = models.ForeignKey(Facility, verbose_name=_("Facility"), blank=True, null=True, default=None)
+    facility = models.ForeignKey(
+        Facility, verbose_name=_("Facility"), blank=True, null=True, default=None)
     staff = models.ForeignKey(Staff, verbose_name=_("Staff"), blank=True, null=True, default=None)
 
     def __unicode__(self):
-        return "%s %s %s" %(self.name, self.school, self.period)
+        return "%s %s %s" % (self.name, self.school, self.period)

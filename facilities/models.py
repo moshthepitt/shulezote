@@ -3,7 +3,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from schools.models import School
 
+
 class Facility(models.Model):
+
     """
     Meant to store individual types of facilities that we are tracking
     e.g. Toilets, Classrooms, etc
@@ -15,7 +17,9 @@ class Facility(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class FacilityRecord(models.Model):
+
     """
     Track a facility's record for a given school as at a given time
     The period essentially only tracks the year, for example the initial data comes from 2007
@@ -31,4 +35,4 @@ class FacilityRecord(models.Model):
     total = models.PositiveIntegerField(_("Total"), default=0)
 
     def __unicode__(self):
-        return "%s %s %s" %(self.school, self.facility, self.period)
+        return "%s %s %s" % (self.school, self.facility, self.period)

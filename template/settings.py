@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -31,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'suit',
-    #django
+    # django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.humanize',
     'django.contrib.gis',
-    #custom
+    # custom
     'core',
     'users',
     'schools',
@@ -50,7 +52,7 @@ INSTALLED_APPS = (
     'staff',
     'facts',
     'facilities',
-    #third party
+    # third party
     'allauth',
     'allauth.account',
     # 'allauth.socialaccount',
@@ -74,7 +76,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    #third party
+    # third party
     'pagination.middleware.PaginationMiddleware'
 )
 
@@ -96,12 +98,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-#Templates
+# Templates
 TEMPLATE_DIRS = [
     os.path.join(BASE_DIR, 'templates'),
 ]
-
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
@@ -130,7 +130,7 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_QUERY_EMAIL = True
 EMAIL_CONFIRMATION_DAYS = 14
-ACCOUNT_AUTHENTICATION_METHOD ="username_email"
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
@@ -139,31 +139,32 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-#crispy forms
+# crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-#Pagination
+# Pagination
 PAGINATION_DEFAULT_PAGINATION = 20
 
-#COMPRESSOR
-COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
+# COMPRESSOR
+COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',
+                        'compressor.filters.cssmin.CSSMinFilter']
 
-#CACHE OPS
+# CACHE OPS
 # CACHEOPS_REDIS = {
-#     'host': 'localhost', # redis-server is on same machine
-#     'port': 6379,        # default redis port
-#     'db': 2,             # SELECT non-default redis database
-#                          # using separate redis db or redis instance
-#                          # is highly recommended
+# 'host': 'localhost', # redis-server is on same machine
+# 'port': 6379,        # default redis port
+# 'db': 2,             # SELECT non-default redis database
+# using separate redis db or redis instance
+# is highly recommended
 #     'socket_timeout': 3,
 # }
 # CACHEOPS_DEGRADE_ON_FAILURE = True
 # CACHEOPS = {
-#     #automatically cache everything
+# automatically cache everything
 #     '*.*': ('all', 60*10),
 # }
 
 try:
-   from local_settings import *
+    from local_settings import *
 except ImportError, e:
-   pass
+    pass

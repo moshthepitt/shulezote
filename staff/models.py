@@ -3,7 +3,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from schools.models import School
 
+
 class Staff(models.Model):
+
     """
     stores some information about teahcers at a school as of a certain period
     The period essentially only tracks the year, for example the initial data comes from 2007
@@ -36,10 +38,11 @@ class Staff(models.Model):
     updated_on = models.DateTimeField(_("Updated on"), auto_now=True)
     school = models.ForeignKey(School, verbose_name=_("School"))
     period = models.DateField(_("Period"))
-    staff_type = models.CharField(_("Type of staff"), max_length=1, choices=TYPE_CHOICES, blank=False)
+    staff_type = models.CharField(
+        _("Type of staff"), max_length=1, choices=TYPE_CHOICES, blank=False)
     number = models.PositiveIntegerField(_("Number"), default=0)
     is_teacher = models.BooleanField(_('Teacher'), default=True,
-            help_text=_('Designates whether this staff member is a teacher'))
+                                     help_text=_('Designates whether this staff member is a teacher'))
 
     def __unicode__(self):
-        return "%s %s %s" %(self.get_staff_type_display(), self.school, self.period)
+        return "%s %s %s" % (self.get_staff_type_display(), self.school, self.period)

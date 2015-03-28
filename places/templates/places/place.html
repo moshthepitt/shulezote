@@ -10,6 +10,7 @@
 		<meta name="description" content='{% trans "Schools in" %} {{object.name|title}} {{object.meta.verbose_name}}' />
 	{% endblock %}
 
+	{% block breadcrumbs %}{% include "places/snippets/breadcrumbs.html" with object=object %}{% endblock %}
 	{% block main_content %}
 		<header>
 			<h1>{{object.name|title}} {{object.meta.verbose_name}}</h1>

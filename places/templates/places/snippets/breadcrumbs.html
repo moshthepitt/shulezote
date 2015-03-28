@@ -1,0 +1,35 @@
+{% load i18n %}
+
+<ol class="breadcrumb" vocab="http://schema.org/" typeof="BreadcrumbList">
+  <li property="itemListElement" typeof="ListItem">
+    <a property="item" typeof="WebPage" href="/">
+      <span property="name">{% trans "Home" %}</span>
+      <meta property="position" content="1">
+    </a>
+  </li>
+  {% if object.meta.model_name == "county" %}
+    {% include "places/snippets/county_breadcrumbs.html" with object=object %}
+  {% endif %}
+  {% if object.meta.model_name == "province" %}
+    {% include "places/snippets/province_breadcrumbs.html" with object=object %}
+  {% endif %}
+  {% if object.meta.model_name == "district" %}
+    {% include "places/snippets/district_breadcrumbs.html" with object=object %}
+  {% endif %}
+  {% if object.meta.model_name == "division" %}
+    {% include "places/snippets/division_breadcrumbs.html" with object=object %}
+  {% endif %}
+  {% if object.meta.model_name == "location" %}
+    {% include "places/snippets/location_breadcrumbs.html" with object=object %}
+  {% endif %}
+  {% if object.meta.model_name == "sublocation" %}
+    {% include "places/snippets/sub_location_breadcrumbs.html" with object=object %}
+  {% endif %}
+  {% if object.meta.model_name == "schoolzone" %}
+    {% include "places/snippets/school_zone_breadcrumbs.html" with object=object %}
+  {% endif %}
+  {% if object.meta.model_name == "constituency" %}
+    {% include "places/snippets/constituency_breadcrumbs.html" with object=object %}
+  {% endif %}
+</ol>
+

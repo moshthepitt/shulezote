@@ -1,0 +1,16 @@
+<li property="itemListElement" typeof="ListItem">
+  <a property="item" typeof="WebPage" href="{{object.district.province.get_absolute_url}}">
+    <span property="name">{{object.district.province.name|title}}</span>
+    <meta property="position" content="2">
+  </a>
+</li>
+<li property="itemListElement" typeof="ListItem">
+  <a property="item" typeof="WebPage" href="{{object.district.get_absolute_url}}">
+    <span property="name">{{object.district.name|title}}</span>
+    <meta property="position" content="3">
+  </a>
+</li>
+<li class="active" property="itemListElement" typeof="ListItem">
+  <span property="name">{{object.name|title}}</span>
+  <meta property="position" content="4">
+</li>

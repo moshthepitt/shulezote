@@ -1,0 +1,28 @@
+<li property="itemListElement" typeof="ListItem">
+  <a property="item" typeof="WebPage" href="{{object.location.division.district.province.get_absolute_url}}">
+    <span property="name">{{object.location.division.district.province.name|title}}</span>
+    <meta property="position" content="2">
+  </a>
+</li>
+<li property="itemListElement" typeof="ListItem">
+  <a property="item" typeof="WebPage" href="{{object.location.division.district.get_absolute_url}}">
+    <span property="name">{{object.location.division.district.name|title}}</span>
+    <meta property="position" content="3">
+  </a>
+</li>
+<li property="itemListElement" typeof="ListItem">
+  <a property="item" typeof="WebPage" href="{{object.location.division.get_absolute_url}}">
+    <span property="name">{{object.location.division.name|title}}</span>
+    <meta property="position" content="4">
+  </a>
+</li>
+<li property="itemListElement" typeof="ListItem">
+  <a property="item" typeof="WebPage" href="{{object.location.get_absolute_url}}">
+    <span property="name">{{object.location.name|title}}</span>
+    <meta property="position" content="5">
+  </a>
+</li>
+<li class="active" property="itemListElement" typeof="ListItem">
+  <span property="name">{{object.name|title}}</span>
+  <meta property="position" content="6">
+</li>

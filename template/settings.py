@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.humanize',
     'django.contrib.gis',
+    'django.contrib.sitemaps',
     # custom
     'core',
     'users',

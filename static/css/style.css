@@ -45,6 +45,19 @@ body {
   border-bottom:1px solid #999999;
 }
 
+#sidebar h3{
+  font-size: 18px;
+  font-weight: 500;
+  margin-top:0;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom:1px solid #999999;
+}
+
+#sidebar .widget{
+  margin-bottom:20px;
+}
+
 h6 {
   font-weight:600;
 }

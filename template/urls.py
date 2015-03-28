@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-from django.contrib.sitemaps.views import sitemap
 from django.contrib import admin
 
 from django.conf import settings
@@ -22,7 +21,6 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('allauth.urls')),
     url(r'^page/', include('django.contrib.flatpages.urls')),
     url(r'^search/', include('haystack.urls')),
-    # url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 )
 
 urlpatterns = urlpatterns + sitemap_urls

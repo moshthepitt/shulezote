@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load cache %}
+{% load pagination_tags %}
+
+{% cache 86400 place object.meta.verbose_name object.pk %}
+	{% block title %}{{object.name|title}} {{object.meta.verbose_name}} {% trans "Schools" %}| {{site.name}}{% endblock %}
+	{% block meta_keywords %}<meta name="keywords" content="{{object.name}}" />{% endblock %}
+	{% block meta_description %}
+		<meta name="description" content='{% trans "Schools in" %} {{object.name|title}} {{object.meta.verbose_name}}' />
+	{% endblock %}
+
+	{% block main_content %}
+		<header>
+			<h1>{{object.name|title}} {{object.meta.verbose_name}}</h1>
+		</header>
+
+		{% autopaginate school_list %}
+
+		
+		{% include "schools/snippets/school_list.html" with schools=school_list %}
+
+
+		<div class="clearfix text-center">{% paginate %}</div>
+
+	{% endblock %}
+{% endcache %}

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 {% load compress %}
+{% load i18n %}
 
 <html lang="en">
   <head>
@@ -16,7 +17,7 @@
     <title>{% block title %}{{site.name}}{% endblock %}</title>
 
     {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/spacelab.bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />   
     {% block extracss %}{% endblock %}
     {% endcompress %}
@@ -36,7 +37,7 @@
       <div class="header">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="{% url 'home' %}">Home</a></li>
+            <li role="presentation" class="active"><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
             <li role="presentation"><a href="#">Another Link</a></li>
           </ul>
         </nav>
@@ -56,11 +57,12 @@
 
       {% block all_content %} 
       <div class="row">
+        <div id="breadcrumbs">{% block breadcrumbs %}{% endblock %}</div>
         <div class="col-md-9" id="main-content">
         {% block main_content %}{% endblock %}
         </div>
         <div class="col-md-3" id="sidebar">
-        {% block sidebar_content %}{% endblock %}
+        {% block sidebar_content %}<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>{% endblock %}
         </div>
       </div>
       {% endblock %}

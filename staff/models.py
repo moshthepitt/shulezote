@@ -42,7 +42,10 @@ class Staff(models.Model):
         _("Type of staff"), max_length=1, choices=TYPE_CHOICES, blank=False)
     number = models.PositiveIntegerField(_("Number"), default=0)
     is_teacher = models.BooleanField(_('Teacher'), default=True,
-                                     help_text=_('Designates whether this staff member is a teacher'))
+                                     help_text=_('Is this staff member is a teacher'))
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s %s %s" % (self.get_staff_type_display(), self.school, self.period)
+
+    class Meta:
+        ordering = ["-is_teacher", "staff_type"]

@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.views.generic.list import ListView
 
-from django.views.generic.base import TemplateView
+from schools.models import School
 
-class HomePageView(TemplateView):
 
+class HomePageView(ListView):
+    model = School
     template_name = "home.html"
 
     def get_context_data(self, **kwargs):

@@ -1,5 +1,5 @@
-# from django.db import models
 from django.contrib.gis.db import models
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug import AutoSlugField
@@ -116,6 +116,26 @@ class School(models.Model):
 
     # You MUST use GeoManager to make Geo Queries
     objects = models.GeoManager()
+
+    def get_absolute_url(self):
+        return reverse('school:school', args=[self.slug])
+
+    def meta(self):
+        return self._meta
+
+    def facts(self):
+        return self.fact_set.all()
+
+    def staff(self):
+        return self.staff_set.all()
+
+    def facility_records(self):
+        return self.facilityrecord_set.all()
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _('School')
+        verbose_name_plural = _('Schools')
 
     def __unicode__(self):
         return self.name

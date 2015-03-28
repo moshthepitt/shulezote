@@ -1,0 +1,28 @@
+{% load i18n %}
+<div class="row schools">
+	{% for school in schools %}
+		<div class="col-md-6" 
+			{% if school.level == school.PRIMARY %}
+			itemscope itemtype="http://schema.org/ElementarySchool"
+			{% elif school.level == school.SECONDARY %}
+			itemtype itemscope="http://schema.org/HighSchool"
+			{% endif %}
+			>
+			<div class="panel panel-info">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">
+			    	<a href="{{school.get_absolute_url}}" property="item" typeof="WebPage"><span itemprop="name">{{school.name|title}}</span></a>
+			    </h3>
+			  </div>
+			  <div class="panel-body">
+			    <p><strong>{% trans "Level" %}</strong>: {{school.get_level_display}}</p>
+			    <p><strong>{% trans "Day/Boarding" %}</strong>: {{school.get_school_type_display}}</p>
+			    <p><strong>{% trans "Gender" %}</strong>: {{school.get_student_gender_display}}</p>
+			  </div>
+			</div>
+		</div>
+	{% empty %}
+		<p>{% trans "No schools" %}</p>
+	{% endfor %}
+</div>
+<div class="clearfix"></div>

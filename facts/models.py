@@ -27,3 +27,6 @@ class Fact(models.Model):
 
     def __unicode__(self):
         return "%s %s %s" % (self.name, self.school, self.period)
+
+    class Meta:
+        ordering = ["name"]

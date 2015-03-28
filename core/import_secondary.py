@@ -9,14 +9,15 @@ from django.contrib.gis.geos import Point
 from schools.models import School
 from facts.models import Fact
 from staff.models import Staff
-from facilities.models import Facility, FacilityRecord
 from places.models import County, Constituency, Province, District
 from places.models import Division, Location, SubLocation, SchoolZone
+
 
 def get_ownership(data):
     if data == "PRIVATE":
         return School.PRIVATE
     return School.PUBLIC
+
 
 def get_sponsor(data):
     if data == "CENTRAL GOVERNMENT/DEB":
@@ -31,6 +32,7 @@ def get_sponsor(data):
         return School.PRIVATE_INDIVIDUAL
     return School.NOT_KNOWN
 
+
 def get_student_gender(data):
     if data == "BOYS ONLY":
         return School.BOYS
@@ -41,14 +43,16 @@ def get_student_gender(data):
     else:
         return School.NOT_KNOWN
 
+
 def get_school_type(data):
-    if data== "DAY ONLY":
+    if data == "DAY ONLY":
         return School.DAY
-    elif data== "BOARDING ONLY":
+    elif data == "BOARDING ONLY":
         return School.BOARDING
-    elif data== "DAY & BOARDING":
+    elif data == "DAY & BOARDING":
         return School.DAY_AND_BOARDING
     return School.NOT_KNOWN
+
 
 def get_student_needs(data):
     if data == "ORDINARY":
@@ -59,8 +63,9 @@ def get_student_needs(data):
         return School.SPECIAL
     return School.ORDINARY
 
+
 def import_secondary_schools():
-    period = datetime.datetime(day=31,month=12,year=2007)
+    period = datetime.datetime(day=31, month=12, year=2007)
     filename = "%s/documentation/data/2007/secondary.csv" % settings.BASE_DIR
     n = 1
     with open(filename, "rb") as ifile:
@@ -78,14 +83,14 @@ def import_secondary_schools():
                 school.school_type = get_school_type(row[6].strip())
                 school.student_needs = get_student_needs(row[6].strip())
 
-                #location
-                province,created = Province.objects.get_or_create(name=row[23].strip())
+                # location
+                province, created = Province.objects.get_or_create(name=row[23].strip())
                 school.province = province
-                county,created = County.objects.get_or_create(name=row[24].strip())
+                county, created = County.objects.get_or_create(name=row[24].strip())
                 school.county = county
                 if row[30]:
                     constituency, created = Constituency.objects.get_or_create(name=row[30].strip(), county=county)
-                    school.constituency =  constituency
+                    school.constituency = constituency
                 if row[25]:
                     district, created = District.objects.get_or_create(name=row[25].strip(), province=province)
                     school.district = district
@@ -106,11 +111,11 @@ def import_secondary_schools():
                     coord = row[31].split(",")
                     x = float(coord[0][1:])
                     y = float(coord[1][1:-2])
-                    school.coordinates = Point(y,x)
+                    school.coordinates = Point(y, x)
 
                 school.save()
 
-                #staff
+                # staff
                 if row[12]:
                     staff1, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.TSC_MALE,
                         number=row[12].strip(), is_teacher=True)
@@ -139,10 +144,10 @@ def import_secondary_schools():
                     staff9, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.NON_TEACHING_MALE,
                         number=row[20].strip(), is_teacher=False)
                 if row[21]:
-                    staff10, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.NON_TEACHING_MALE,
+                    staff10, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.NON_TEACHING_FEMALE,
                         number=row[21].strip(), is_teacher=False)
 
-                #facts
+                # facts
                 if row[8]:
                     fact1, created = Fact.objects.get_or_create(name="Total Enrolment", period=period, school=school,
                         value=row[8].strip())
@@ -158,7 +163,5 @@ def import_secondary_schools():
                 if row[22]:
                     fact5, created = Fact.objects.get_or_create(name="Acreage", period=period, school=school,
                         value=row[22].strip())
-
-
 
             n += 1

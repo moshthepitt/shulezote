@@ -153,7 +153,7 @@ def import_primary_schools():
                         staff9, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.NON_TEACHING_MALE,
                                                                       number=row[26].strip(), is_teacher=False)
                     if row[27]:
-                        staff10, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.NON_TEACHING_MALE,
+                        staff10, created = Staff.objects.get_or_create(period=period, school=school, staff_type=Staff.NON_TEACHING_FEMALE,
                                                                        number=row[27].strip(), is_teacher=False)
 
                     # facts

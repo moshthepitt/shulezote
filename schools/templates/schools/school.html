@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load cache %}
+{% load pagination_tags %}
+
+{% cache 86400 place object.meta.verbose_name object.pk %}
+	{% block title %}{{object.name|title}} {{object.meta.verbose_name}} | {{object.county.name|title}} {{object.county.meta.verbose_name}} | {{site.name}}{% endblock %}
+	{% block meta_keywords %}
+		<meta name="keywords" content="{{object.name}}, {{object.county.name}}, {{object.province.name}}, {{object.district.name}}, {{object.division.name}}, {{object.location.name}}, {{object.sub_location.name}}, {{object.school_zone.name}}, {{object.constituency.name}}" />
+	{% endblock %}
+	{% block meta_description %}
+		<meta name="description" content='{{object.name|title}} {{object.meta.verbose_name}} {% trans "in" %} {{object.county.name}} {{object.county.meta.verbose_name}}' />
+	{% endblock %}
+
+	{% block extrahead %}
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+		<script type="text/javascript">
+	      function initialize() {
+	        var mapOptions = {
+	          center: { lat: {{object.coordinates.y}}, lng: {{object.coordinates.x}}},
+	          zoom: 10
+	        };
+	        var map = new google.maps.Map(document.getElementById('map-canvas'),
+	            mapOptions);
+
+	        var marker = new google.maps.Marker({
+              position: { lat: {{object.coordinates.y}}, lng: {{object.coordinates.x}}},
+              map: map,
+              title: '{{object.name|title}}'
+          	});
+	      }
+	      google.maps.event.addDomListener(window, 'load', initialize);
+		</script>
+	{% endblock %}	
+
+	{% block breadcrumbs %}
+		<ol class="breadcrumb" vocab="http://schema.org/" typeof="BreadcrumbList">
+		  <li property="itemListElement" typeof="ListItem">
+		  	<a property="item" typeof="WebPage" href="/">
+		  		<span property="name">{% trans "Home" %}</span>
+		  		<meta property="position" content="1">
+		  	</a>
+		  </li>
+		  <li property="itemListElement" typeof="ListItem">
+		  	<a property="item" typeof="WebPage" href="{{object.county.get_absolute_url}}">
+		  		<span property="name">{{object.county.name|title}}</span>
+		  		<meta property="position" content="2">
+		  	</a>
+		  </li>
+		  <li class="active" property="itemListElement" typeof="ListItem">
+		  	<span property="name">{{object.name|title}}</span>
+		  	<meta property="position" content="3">
+		  </li>
+		</ol>
+	{% endblock %}
+
+	{% block main_content %}	
+
+		<div
+			{% if school.level == school.PRIMARY %}
+			itemscope itemtype="http://schema.org/ElementarySchool"
+			{% elif school.level == school.SECONDARY %}
+			itemtype itemscope="http://schema.org/HighSchool"
+			{% endif %} 
+		>
+			<header>
+				<h1><span itemprop="name">{{object.name|title}}</span></h1>
+			</header>			
+
+			<div class="row">
+				<div id="map-canvas" class="col-md-12"></div>
+			</div>
+
+			<div class="school-details row">
+				<div class="col-md-6">
+
+					<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">{% trans "Details" %}</h3>
+					  </div>
+					  <div class="panel-body">
+					    <p><strong>{% trans "School Code" %}</strong>: {{school.code|default_if_none:"N/A"}}</p>
+					    <p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+					    	<strong>{% trans "Address" %}</strong>: <span property="postOfficeBoxNumber">{{school.address|title|default_if_none:"N/A"}}</span>
+					    </p>
+					    <p><strong>{% trans "Level" %}</strong>: {{school.get_level_display|default_if_none:"N/A"}}</p>
+					    <p><strong>{% trans "Day/Boarding" %}</strong>: {{school.get_school_type_display|default_if_none:"N/A"}}</p>
+					    <p><strong>{% trans "Gender" %}</strong>: {{school.get_student_gender_display|default_if_none:"N/A"}}</p>
+					    <p><strong>{% trans "Ownership" %}</strong>: {{school.get_ownership_display|default_if_none:"N/A"}}</p>
+					    <p><strong>{% trans "Sponsor" %}</strong>: {{school.get_sponsor_display|default_if_none:"N/A"}}</p>
+					    <p><strong>{% trans "Student Needs" %}</strong>: {{school.get_student_needs_display|default_if_none:"N/A"}}</p>
+					  </div>
+					</div>	
+
+					<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">{% trans "Facts" %}</h3>
+					  </div>
+					  <div class="panel-body">
+					    {% for fact in school.facts %}
+					    <p><strong>{{fact.name}}</strong>: {{fact.value}}</p>
+					    {% endfor %}
+					  </div>
+					</div>
+
+					<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">{% trans "Location" %}</h3>
+					  </div>
+					  <div class="panel-body">
+					    <p>
+					    	<strong>{% trans "County" %}</strong>: 
+					    	<a href="{{school.county.get_absolute_url}}">{{school.county|title|default_if_none:"N/A"}}</a>
+					    </p>
+					    <p>
+					    	<strong>{% trans "Constituency" %}</strong>: 
+					    	<a href="{{school.constituency.get_absolute_url}}">{{school.constituency|title|default_if_none:"N/A"}}</a>
+					    </p>
+					    <p>
+					    	<strong>{% trans "Province" %}</strong>: 
+					    	<a href="{{school.province.get_absolute_url}}">{{school.province|title|default_if_none:"N/A"}}</a>
+					    </p>
+					    <p>
+					    	<strong>{% trans "District" %}</strong>: 
+					    	<a href="{{school.district.get_absolute_url}}">{{school.distric|title|default_if_none:"N/A"}}</a>
+					    </p>
+					    <p>
+					    	<strong>{% trans "Division" %}</strong>: 
+					    	<a href="{{school.division.get_absolute_url}}">{{school.division|title|default_if_none:"N/A"}}</a>
+					    </p>
+					    <p>
+					    	<strong>{% trans "Location" %}</strong>: 
+					    	<a href="{{school.location.get_absolute_url}}">{{school.location|title|default_if_none:"N/A"}}</a>
+					    </p>
+					    <p>
+					    	<strong>{% trans "Sub Location" %}</strong>: 
+					    	<a href="{{school.sub_location.get_absolute_url}}">{{school.sub_location|title|default_if_none:"N/A"}}</a>
+					    </p>
+					    <p>
+					    	<strong>{% trans "School Zone" %}</strong>: 
+					    	<a href="{{school.school_zone.get_absolute_url}}">{{school.school_zone|title|default_if_none:"N/A"}}</a>
+					    </p>
+					  </div>
+					</div>					
+
+				</div>
+				<div class="col-md-6">
+					{% if school.staff %}
+						<div class="panel panel-default">
+						  <div class="panel-heading">
+						    <h3 class="panel-title">{% trans "Staff" %}</h3>
+						  </div>
+						  <div class="panel-body">
+						    <div class="table-responsive">
+						    	<table class="table">
+						    		{% for staff in school.staff %}
+						    			<tr>
+						    				<th>{{staff.get_staff_type_display}}</th>
+						    				<td>{{staff.number}}</td>
+						    			</tr>
+						    		{% endfor %}
+						    	</table>
+						    </div>
+						  </div>
+						</div>						
+					{% endif %}
+
+					{% if school.facility_records %}
+						<div class="panel panel-default">
+						  <div class="panel-heading">
+						    <h3 class="panel-title">{% trans "Factilities" %}</h3>
+						  </div>
+						  <div class="panel-body">
+						    {% regroup school.facility_records by facility.name as facility_list %}
+						    <div class="table-responsive">
+						    	<table class="table">
+						    		<tr>
+						    			<th></th>
+						    			<th>{% trans "Boys" %}</th>
+						    			<th>{% trans "Girls" %}</th>
+						    			<th>{% trans "Total" %}</th>
+						    		</tr>
+						    		{% for facility in facility_list %}
+						    		<tr>
+						    			<th>{{ facility.grouper }}</th>
+						    			{% for record in facility.list %}
+						    			<td>{{record.boys}} </td>
+						    			<td>{{record.girls}}</td>
+						    			<td>{{record.total}}</td>
+						    			{% endfor %}
+						    		</tr>
+						    		{% endfor %}
+						    	</table>
+						    </div>
+						  </div>
+						</div>						
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+{% endcache %}

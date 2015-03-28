@@ -50,7 +50,20 @@
             </div>
         {% endif %}
     {% else %}
-        {# Show some example queries to run, maybe query syntax, something else? #}
+        <div class="input-group col-md-6">
+            <p>{% trans "Search by school name below" %}</p>
+            <form action="/search">
+            <div class="input-group">
+            <input type="text" name="q" class="search-query form-control input-sm" placeholder="{% trans 'School name' %}" />
+            <span class="input-group-btn">
+                <button class="btn btn-primary btn-sm" type="submit">
+                    <span class=" glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+            </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
     {% endif %}
     
 {% endblock %}

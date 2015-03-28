@@ -14,6 +14,7 @@ class CountyView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(CountyView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(county=self.object)
+        context['current_page'] = self.request.GET.get('page')
         return context
 
 
@@ -24,6 +25,7 @@ class ProvinceView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProvinceView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(province=self.object)
+        context['current_page'] = self.request.GET.get('page')
         return context
 
 
@@ -35,6 +37,7 @@ class DistrictView(TemplateView):
         context = super(DistrictView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(district=self.object)
         context['object'] = self.object
+        context['current_page'] = self.request.GET.get('page')
         return context
 
     def dispatch(self, *args, **kwargs):
@@ -50,6 +53,7 @@ class DivisionView(TemplateView):
         context = super(DivisionView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(division=self.object)
         context['object'] = self.object
+        context['current_page'] = self.request.GET.get('page')
         return context
 
     def dispatch(self, *args, **kwargs):
@@ -65,6 +69,7 @@ class LocationView(TemplateView):
         context = super(LocationView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(location=self.object)
         context['object'] = self.object
+        context['current_page'] = self.request.GET.get('page')
         return context
 
     def dispatch(self, *args, **kwargs):
@@ -80,6 +85,7 @@ class SubLocationView(TemplateView):
         context = super(SubLocationView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(sub_location=self.object)
         context['object'] = self.object
+        context['current_page'] = self.request.GET.get('page')
         return context
 
     def dispatch(self, *args, **kwargs):
@@ -95,6 +101,7 @@ class SchoolZoneView(TemplateView):
         context = super(SchoolZoneView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(school_zone=self.object)
         context['object'] = self.object
+        context['current_page'] = self.request.GET.get('page')
         return context
 
     def dispatch(self, *args, **kwargs):
@@ -110,6 +117,7 @@ class ConstituencyView(TemplateView):
         context = super(ConstituencyView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(constituency=self.object)
         context['object'] = self.object
+        context['current_page'] = self.request.GET.get('page')
         return context
 
     def dispatch(self, *args, **kwargs):

@@ -65,6 +65,7 @@ INSTALLED_APPS = (
     # 'cacheops',
     'suit_redactor',
     'autoslug',
+    'haystack',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -169,6 +170,14 @@ COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',
 # automatically cache everything
 #     '*.*': ('all', 60*10),
 # }
+
+# Haystack
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
 
 try:
     from local_settings import *

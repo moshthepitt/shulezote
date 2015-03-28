@@ -1,0 +1,23 @@
+{{ object.name }}
+
+{{school.code}}
+{{school.address}}
+{{school.get_level_display}}
+{{school.get_school_type_display}}
+{{school.get_student_gender_display}}
+{{school.get_ownership_display}}
+{{school.get_sponsor_display}}
+{{school.get_student_needs_display}}
+
+{{object.county.name}}
+{{object.constituency.name}}
+{{object.province.name}}
+{{object.district.name}}
+{{object.division.name}}
+{{object.location.name}}
+{{object.sub_location.name}}
+{{object.school_zone.name}}
+
+{% for fact in school.facts %}
+{{fact.name}}: {{fact.value}}
+{% endfor %}

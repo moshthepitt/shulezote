@@ -34,14 +34,14 @@
   <body>
 
     <div class="container">
-      <div class="header">
-        <nav>
+      <div id="site-head" class="header">
+        <!--<nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
             <li role="presentation"><a href="#">Another Link</a></li>
           </ul>
-        </nav>
-        <h3 class="text-muted">{{site.name}}</h3>
+        </nav>-->
+        <h3 class="text-muted"><a href="{% url 'home' %}">{{site.name}}</a></h3>
       </div>
 
       {% block messages %}
@@ -66,12 +66,16 @@
           <div class="widget" id="custom-search-input">
             <h3>{% trans "Search" %}</h3>
             <div class="input-group col-md-12">
+              <form action="/search">
+                <div class="input-group">
                 <input type="text" class="search-query form-control input-sm" placeholder="{% trans 'School name' %}" />
                 <span class="input-group-btn">
-                    <button class="btn btn-primary btn-sm" type="button">
+                    <button class="btn btn-primary btn-sm" type="submit">
                         <span class=" glyphicon glyphicon-search"></span>
                     </button>
                 </span>
+                </div>
+              </form>
             </div>
           </div>
         {% endblock %}

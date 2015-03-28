@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block main_content %}
+    
+    <header>
+        <h1>{% trans "Search" %}</h1>
+    </header>
+
+    {% if query %}
+        <div class="row schools">
+        {% for result in page.object_list %}
+            
+            <div class="col-md-6" 
+                {% if result.object.level == result.object.PRIMARY %}
+                itemscope itemtype="http://schema.org/ElementarySchool"
+                {% elif result.object.level == result.object.SECONDARY %}
+                itemtype itemscope="http://schema.org/HighSchool"
+                {% endif %}
+                >
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a href="{{result.object.get_absolute_url}}" property="item" typeof="WebPage"><span itemprop="name">{{result.object.name|title}}</span></a>
+                    </h3>
+                  </div>
+                  <div class="panel-body">
+                    <p><strong>{% trans "Level" %}</strong>: {{result.object.get_level_display}}</p>
+                    <p><strong>{% trans "Day/Boarding" %}</strong>: {{result.object.get_school_type_display}}</p>
+                    <p><strong>{% trans "Gender" %}</strong>: {{result.object.get_student_gender_display}}</p>
+                  </div>
+                </div>
+            </div>
+           
+        {% empty %}
+            <div class="col-md-12">
+                <p>{% trans "No results found" %}</p>
+                {% if form.get_suggestion %}
+                <p>{% trans "Did you mean" %} <a href="/search?q={{form.get_suggestion}}">{{form.get_suggestion}}</a>?</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+         </div>
+
+        {% if page.has_previous or page.has_next %}
+            <div>
+                {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; {% trans "Previous" %}{% if page.has_previous %}</a>{% endif %}
+                |
+                {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}{% trans "Next" %} &raquo;{% if page.has_next %}</a>{% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        {# Show some example queries to run, maybe query syntax, something else? #}
+    {% endif %}
+    
+{% endblock %}

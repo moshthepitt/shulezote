@@ -36,6 +36,14 @@ body {
   line-height: 40px;
 }
 
+#site-head h3,
+#site-head h3 a,
+#site-head h3 a:hover {
+  font-weight: 700;
+  text-decoration: none;
+  color:#000;
+}
+
 #main-content header h1 {
   font-size: 25px;
   font-weight: 700;

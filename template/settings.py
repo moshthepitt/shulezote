@@ -70,6 +70,8 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',   # sitewide caching for all
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,7 +81,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     # third party
-    'pagination.middleware.PaginationMiddleware'
+    'pagination.middleware.PaginationMiddleware',
+
+    'django.middleware.cache.FetchFromCacheMiddleware',   # sitewide caching for all
 )
 
 

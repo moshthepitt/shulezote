@@ -84,27 +84,31 @@ def import_secondary_schools():
                 school.student_needs = get_student_needs(row[6].strip())
 
                 # location
-                province, created = Province.objects.get_or_create(name=row[23].strip())
+                province, created = Province.objects.get_or_create(name=row[23].strip().upper())
                 school.province = province
-                county, created = County.objects.get_or_create(name=row[24].strip())
+                county, created = County.objects.get_or_create(name=row[24].strip().upper())
                 school.county = county
                 if row[30]:
-                    constituency, created = Constituency.objects.get_or_create(name=row[30].strip(), county=county)
+                    constituency, created = Constituency.objects.get_or_create(name=row[30].strip().upper())
+                    constituency.county = county
+                    constituency.save()
                     school.constituency = constituency
                 if row[25]:
-                    district, created = District.objects.get_or_create(name=row[25].strip(), province=province)
+                    district, created = District.objects.get_or_create(name=row[25].strip().upper())
+                    district.province = province
+                    district.save()
                     school.district = district
                 if row[26]:
-                    division, created = Division.objects.get_or_create(name=row[26].strip(), district=district)
+                    division, created = Division.objects.get_or_create(name=row[26].strip().upper(), district=district)
                     school.division = division
                 if row[27]:
-                    location, created = Location.objects.get_or_create(name=row[27].strip(), division=division)
+                    location, created = Location.objects.get_or_create(name=row[27].strip().upper(), division=division)
                     school.location = location
                 if row[28]:
-                    sub_location, created = SubLocation.objects.get_or_create(name=row[28].strip(), location=location)
+                    sub_location, created = SubLocation.objects.get_or_create(name=row[28].strip().upper(), location=location)
                     school.sub_location = sub_location
                 if row[29]:
-                    school_zone, created = SchoolZone.objects.get_or_create(name=row[29].strip(), county=county)
+                    school_zone, created = SchoolZone.objects.get_or_create(name=row[29].strip().upper(), county=county)
                     school.school_zone = school_zone
 
                 if row[31]:

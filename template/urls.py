@@ -6,9 +6,9 @@ from django.conf import settings
 from core.views import HomePageView
 from core.sitemaps import sitemaps
 
-sitemap_urls = patterns('django.contrib.sitemaps.views',
-    (r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
-    (r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
+sitemap_urls = patterns('',
+    (r'^sitemap\.xml$', 'fastsitemaps.views.index', {'sitemaps': sitemaps}),
+    (r'^sitemap-(?P<section>.+)\.xml$', 'fastsitemaps.views.sitemap', {'sitemaps': sitemaps}),
 )
 
 urlpatterns = patterns('',

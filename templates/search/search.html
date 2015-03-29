@@ -28,6 +28,7 @@
                     <p><strong>{% trans "Level" %}</strong>: {{result.object.get_level_display}}</p>
                     <p><strong>{% trans "Day/Boarding" %}</strong>: {{result.object.get_school_type_display}}</p>
                     <p><strong>{% trans "Gender" %}</strong>: {{result.object.get_student_gender_display}}</p>
+                    <p><strong>{% trans "Location" %}</strong>: {{result.object.county.name|title}} {{result.object.county.meta.verbose_name}}</p>
                   </div>
                 </div>
             </div>

@@ -18,11 +18,12 @@
 			    <p><strong>{% trans "Level" %}</strong>: {{school.get_level_display}}</p>
 			    <p><strong>{% trans "Day/Boarding" %}</strong>: {{school.get_school_type_display}}</p>
 			    <p><strong>{% trans "Gender" %}</strong>: {{school.get_student_gender_display}}</p>
+			    <p><strong>{% trans "Location" %}</strong>: {{school.county.name|title}} {{school.county.meta.verbose_name}}</p>
 			  </div>
 			</div>
 		</div>
 	{% empty %}
-		<p>{% trans "No schools" %}</p>
+		<div class="col-md-12"><p>{% trans "No schools" %}</p></div>
 	{% endfor %}
 </div>
 <div class="clearfix"></div>

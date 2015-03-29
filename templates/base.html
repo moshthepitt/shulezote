@@ -63,21 +63,7 @@
         </div>
         <div class="col-md-3" id="sidebar">
         {% block sidebar_content %}
-          <div class="widget" id="custom-search-input">
-            <h3>{% trans "Search" %}</h3>
-            <div class="input-group col-md-12">
-              <form action="/search">
-                <div class="input-group">
-                <input type="text" name="q" class="search-query form-control input-sm" placeholder="{% trans 'School name' %}" />
-                <span class="input-group-btn">
-                    <button class="btn btn-primary btn-sm" type="submit">
-                        <span class=" glyphicon glyphicon-search"></span>
-                    </button>
-                </span>
-                </div>
-              </form>
-            </div>
-          </div>
+          {% include "snippets/sidebar.html" %}
         {% endblock %}
         </div>
       </div>

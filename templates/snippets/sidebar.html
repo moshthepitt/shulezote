@@ -1,0 +1,40 @@
+{% load i18n %}
+<div class="widget" id="custom-search-input">
+  <h3>{% trans "Search" %}</h3>
+  <div class="input-group col-md-12">
+    <form action="/search">
+      <div class="input-group">
+      <input type="text" name="q" class="search-query form-control input-sm" placeholder="{% trans 'School name' %}" />
+      <span class="input-group-btn">
+          <button class="btn btn-primary btn-sm" type="submit">
+              <span class=" glyphicon glyphicon-search"></span>
+          </button>
+      </span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="widget" id="custom-search-input">
+  <h3>{% trans "Schools By County" %}</h3>
+  <div class="input-group col-md-12">
+    <select class="form-control input-sm" onchange="location = this.options[this.selectedIndex].value;">
+      <option value="#">{% trans "Select County" %}</option>
+      {% for sidebar_county in all_counties %}
+        <option value="{{sidebar_county.get_absolute_url}}">{{sidebar_county.name|title}}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<div class="widget" id="custom-search-input">
+  <h3>{% trans "Schools By Constituency" %}</h3>
+  <div class="input-group col-md-12">
+    <select class="form-control input-sm" onchange="location = this.options[this.selectedIndex].value;">
+      <option value="#">{% trans "Select Constituency" %}</option>
+      {% for sidebar_constituency in all_constituencies %}
+        <option value="{{sidebar_constituency.get_absolute_url}}">{{sidebar_constituency.name|title}}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.views.decorators.cache import cache_page
 from django.contrib import admin
 
 from django.conf import settings
@@ -17,7 +18,7 @@ sitemap_urls = patterns('',
 )
 
 urlpatterns = patterns('',
-    url(r'^$', HomePageView.as_view(), name='home'),
+    url(r'^$', cache_page(60 * 60 * 4)(HomePageView.as_view()), name='home'),
 
     url(r'^place/', include('places.urls', namespace="place")),
     url(r'^school/', include('schools.urls', namespace="school")),

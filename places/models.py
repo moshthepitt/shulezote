@@ -17,6 +17,17 @@ class PlaceModel(models.Model):
     def meta(self):
         return self._meta
 
+    def school_count(self):
+        return self.school_set.all().count()
+
+    def primary_school_count(self):
+        from schools.models import School
+        return self.school_set.filter(level=School.PRIMARY).count()
+
+    def secondary_school_count(self):
+        from schools.models import School
+        return self.school_set.filter(level=School.SECONDARY).count()
+
     def __unicode__(self):
         return self.name
 

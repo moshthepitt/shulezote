@@ -18,7 +18,7 @@
 	      function initialize() {
 	        var mapOptions = {
 	          center: { lat: {{object.coordinates.y}}, lng: {{object.coordinates.x}}},
-	          zoom: 10
+	          zoom: 11
 	        };
 	        var map = new google.maps.Map(document.getElementById('map-canvas'),
 	            mapOptions);
@@ -71,6 +71,35 @@
 				<div id="map-canvas" class="col-md-12"></div>
 			</div>
 
+			<div class="row">
+				<div id="quick-info" class="col-md-12">					
+					<div class="panel panel-info">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">{% trans "Quick Info" %} </h3>
+					  </div>
+					  <div class="panel-body">
+					  	<p><span itemprop="name">{{object.name|title}}</span> {% trans "is in" %} {{object.county.name|title}} {{object.county.meta.verbose_name}} ({{object.constituency.name|title}} {{object.constituency.meta.verbose_name}}).</p>
+					  	<p>
+					  		<span itemprop="name">{{object.name|title}}</span>
+					  		{% trans "is a" %}
+					  		{{school.get_student_gender_display|lower}}					  		
+					  		{{school.get_school_type_display|lower}}
+					  		{{school.get_level_display|lower}}.
+					  	</p>
+
+					  	<p>{% trans "Nearby schools:" %}
+						  	<ol>
+						  		{% for nearby_school in school.nearby_schools|slice:":5" %}
+						  		<li><a href="{{nearby_school.get_absolute_url}}">{{nearby_school.name|title}}</a> ({{nearby_school.distance.m|floatformat:2}}{% trans "m" %})</li>
+						  		{% endfor %}
+						  	</ol>
+					  	</p>	
+					  </div>
+					</div>
+
+				</div>
+			</div>
+
 			<div class="school-details row">
 				<div class="col-md-6">
 
@@ -108,38 +137,54 @@
 					    <h3 class="panel-title">{% trans "Location" %}</h3>
 					  </div>
 					  <div class="panel-body">
-					    <p>
-					    	<strong>{% trans "County" %}</strong>: 
-					    	<a href="{{school.county.get_absolute_url}}">{{school.county|title|default_if_none:"N/A"}}</a>
-					    </p>
-					    <p>
-					    	<strong>{% trans "Constituency" %}</strong>: 
-					    	<a href="{{school.constituency.get_absolute_url}}">{{school.constituency|title|default_if_none:"N/A"}}</a>
-					    </p>
-					    <p>
-					    	<strong>{% trans "Province" %}</strong>: 
-					    	<a href="{{school.province.get_absolute_url}}">{{school.province|title|default_if_none:"N/A"}}</a>
-					    </p>
-					    <p>
-					    	<strong>{% trans "District" %}</strong>: 
-					    	<a href="{{school.district.get_absolute_url}}">{{school.district|title|default_if_none:"N/A"}}</a>
-					    </p>
-					    <p>
-					    	<strong>{% trans "Division" %}</strong>: 
-					    	<a href="{{school.division.get_absolute_url}}">{{school.division|title|default_if_none:"N/A"}}</a>
-					    </p>
-					    <p>
-					    	<strong>{% trans "Location" %}</strong>: 
-					    	<a href="{{school.location.get_absolute_url}}">{{school.location|title|default_if_none:"N/A"}}</a>
-					    </p>
-					    <p>
-					    	<strong>{% trans "Sub Location" %}</strong>: 
-					    	<a href="{{school.sub_location.get_absolute_url}}">{{school.sub_location|title|default_if_none:"N/A"}}</a>
-					    </p>
-					    <p>
-					    	<strong>{% trans "School Zone" %}</strong>: 
-					    	<a href="{{school.school_zone.get_absolute_url}}">{{school.school_zone|title|default_if_none:"N/A"}}</a>
-					    </p>
+					    {% if school.county %}
+						    <p>
+						    	<strong>{% trans "County" %}</strong>: 
+						    	<a href="{{school.county.get_absolute_url}}">{{school.county|title}}</a>
+						    </p>
+					    {% endif %}
+					    {% if school.constituency %}
+						    <p>
+						    	<strong>{% trans "Constituency" %}</strong>: 
+						    	<a href="{{school.constituency.get_absolute_url}}">{{school.constituency|title}}</a>
+						    </p>
+					    {% endif %}
+					    {% if school.province %}
+						    <p>
+						    	<strong>{% trans "Province" %}</strong>: 
+						    	<a href="{{school.province.get_absolute_url}}">{{school.province|title}}</a>
+						    </p>
+					    {% endif %}
+					    {% if school.district %}
+						    <p>
+						    	<strong>{% trans "District" %}</strong>: 
+						    	<a href="{{school.district.get_absolute_url}}">{{school.district|title}}</a>
+						    </p>
+					    {% endif %}
+					    {% if school.division %}
+						    <p>
+						    	<strong>{% trans "Division" %}</strong>: 
+						    	<a href="{{school.division.get_absolute_url}}">{{school.division|title}}</a>
+						    </p>
+					    {% endif %}
+					    {% if school.location %}
+						    <p>
+						    	<strong>{% trans "Location" %}</strong>: 
+						    	<a href="{{school.location.get_absolute_url}}">{{school.location|title}}</a>
+						    </p>
+					    {% endif %}
+					    {% if school.sub_location %}
+						    <p>
+						    	<strong>{% trans "Sub Location" %}</strong>: 
+						    	<a href="{{school.sub_location.get_absolute_url}}">{{school.sub_location|title}}</a>
+						    </p>
+					    {% endif %}
+					    {% if school.School_zone %}
+						    <p>
+						    	<strong>{% trans "School Zone" %}</strong>: 
+						    	<a href="{{school.school_zone.get_absolute_url}}">{{school.school_zone|title}}</a>
+						    </p>
+					    {% endif %}
 					  </div>
 					</div>					
 

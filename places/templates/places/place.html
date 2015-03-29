@@ -18,6 +18,23 @@
 			<h1>{{object.name|title}} {{object.meta.verbose_name}}</h1>
 		</header>
 
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">{% trans "Quick Info" %} </h3>
+		  </div>
+		  <div class="panel-body">
+		  	<p>{{object.name|title}} {{object.meta.verbose_name}} {% trans "has" %}:
+				<ul>
+					<li>{{object.school_count}} {% trans "total schools." %}</li>
+					<li>{{object.primary_school_count}} {% trans "primary schools." %}</li>
+					<li>{{object.secondary_school_count}} {% trans "secondary schools." %}</li>
+				</ul>
+		  	 </p>
+		  </div>
+		</div>
+
+		<hr>
+
 		{% autopaginate school_list %}
 		
 		{% include "schools/snippets/school_list.html" with schools=school_list %}

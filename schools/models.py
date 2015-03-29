@@ -132,6 +132,15 @@ class School(models.Model):
     def facility_records(self):
         return self.facilityrecord_set.all()
 
+    def nearby_schools(self):
+        return School.objects.exclude(pk=self.pk).distance(self.coordinates).order_by('distance')
+
+    def nearby_primary_schools(self):
+        return School.objects.exclude(pk=self.pk).filter(level=School.PRIMARY).distance(self.coordinates).order_by('distance')
+
+    def nearby_secondary_schools(self):
+        return School.objects.exclude(pk=self.pk).filter(level=School.SECONDARY).distance(self.coordinates).order_by('distance')
+
     class Meta:
         ordering = ["name"]
         verbose_name = _('School')

@@ -67,7 +67,6 @@ INSTALLED_APPS = (
     'suit_redactor',
     'autoslug',
     'haystack',
-    'static_sitemaps',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -187,9 +186,6 @@ HAYSTACK_CONNECTIONS = {
         'BATCH_SIZE': 1000,
     },
 }
-
-#SITEMAPS
-STATICSITEMAPS_ROOT_SITEMAP = 'core.sitemaps.sitemaps'
 
 try:
     from local_settings import *

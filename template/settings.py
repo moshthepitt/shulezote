@@ -70,7 +70,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.cache.UpdateCacheMiddleware',   # sitewide caching for all
+    # 'django.middleware.cache.UpdateCacheMiddleware',   # sitewide caching for all
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -83,7 +83,7 @@ MIDDLEWARE_CLASSES = (
     # third party
     'pagination.middleware.PaginationMiddleware',
 
-    'django.middleware.cache.FetchFromCacheMiddleware',   # sitewide caching for all
+    # 'django.middleware.cache.FetchFromCacheMiddleware',   # sitewide caching for all
 )
 
 

@@ -90,16 +90,16 @@ def import_primary_schools():
                     school.province = province
 
                     if row[33]:
-                        constituency, created = Constituency.objects.get_or_create(
-                            name=row[33].strip().upper())
-                        constituency.county = county
-                        constituency.save()
+                        constituency = Constituency.objects.filter(name=row[33].strip().upper()).first()
+                        if not constituency:
+                            constituency, created = Constituency.objects.get_or_create(
+                                name=row[33].strip().upper(), county=county)
                         school.constituency = constituency
                     if row[30]:
-                        district, created = District.objects.get_or_create(
-                            name=row[30].strip().upper())
-                        district.province = province
-                        district.save()
+                        district = District.objects.filter(name=row[30].strip().upper()).first()
+                        if not district:
+                            district, created = District.objects.get_or_create(
+                                name=row[30].strip().upper(), province=province)
                         school.district = district
                     if row[31]:
                         division, created = Division.objects.get_or_create(

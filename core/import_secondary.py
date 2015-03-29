@@ -89,14 +89,14 @@ def import_secondary_schools():
                 county, created = County.objects.get_or_create(name=row[24].strip().upper())
                 school.county = county
                 if row[30]:
-                    constituency, created = Constituency.objects.get_or_create(name=row[30].strip().upper())
-                    constituency.county = county
-                    constituency.save()
+                    constituency = Constituency.objects.filter(name=row[30].strip().upper()).first()
+                    if not constituency:
+                        constituency, created = Constituency.objects.get_or_create(name=row[30].strip().upper(), county=county)
                     school.constituency = constituency
                 if row[25]:
-                    district, created = District.objects.get_or_create(name=row[25].strip().upper())
-                    district.province = province
-                    district.save()
+                    district = District.objects.filter(name=row[25].strip().upper()).first()
+                    if not district:
+                        district, created = District.objects.get_or_create(name=row[25].strip().upper(), province=province)
                     school.district = district
                 if row[26]:
                     division, created = Division.objects.get_or_create(name=row[26].strip().upper(), district=district)

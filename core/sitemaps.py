@@ -1,6 +1,6 @@
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 
-from schools.sitemaps import SchoolSitemap
+from schools.sitemaps import school_sitemaps
 
 from places.models import Province, County, District, Division, Location, SubLocation
 from places.models import Constituency, SchoolZone
@@ -47,7 +47,7 @@ constituency_dict = {
 
 sitemaps = {
     'flatpages': FlatPageSitemap,
-    'schools': SchoolSitemap,
+    # 'schools': SchoolSitemap,
     'province': GenericSitemap(province_dict, priority=0.6, changefreq='monthly'),
     'county': GenericSitemap(county_dict, priority=0.6, changefreq='monthly'),
     'district': GenericSitemap(district_dict, priority=0.6, changefreq='monthly'),
@@ -57,3 +57,6 @@ sitemaps = {
     'school_zone': GenericSitemap(school_zone_dict, priority=0.6, changefreq='monthly'),
     'constituency': GenericSitemap(constituency_dict, priority=0.6, changefreq='monthly'),
 }
+
+sitemaps = sitemaps.copy()
+sitemaps.update(school_sitemaps())

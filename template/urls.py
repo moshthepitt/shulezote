@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^school/', include('schools.urls', namespace="school")),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/', include('allauth.urls')),
+    # url(r'^accounts/', include('allauth.urls')),
     url(r'^page/', include('django.contrib.flatpages.urls')),
     url(r'^search/', include('haystack.urls')),
 )

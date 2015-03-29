@@ -118,6 +118,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     "allauth.socialaccount.context_processors.socialaccount",
 
     "core.context_processors.site_processor",
+    "core.context_processors.debug_processor",
     "places.context_processors.county_processor",
     "places.context_processors.constituency_processor",
 )

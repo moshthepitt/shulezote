@@ -1,12 +1,13 @@
 {% extends "base.html" %}
-{% block title %}{{ flatpage.title }}{% endblock %}
+{% load cache %}
+{% cache 86400 flatpages flatpage.pk %}
+{% block title %}{{ flatpage.title }} | {{site.name}}{% endblock %}
 {% block main_content %}
-    <div class="header_title clearfix">
-       <div class="titlepadding">
-           <h2>{{ flatpage.title }}</h2>
-       </div>
-    </div>
+	<header>
+		<h1>{{ flatpage.title }}</h1>
+	</header>
     <div class="content">
     	<div class="checkout">{{ flatpage.content }}</div>
-		</div>
+	</div>
 {% endblock %}
+{% endcache %}

@@ -27,14 +27,3 @@
   </div>
 </div>
 
-<div class="widget" id="custom-search-input">
-  <h3>{% trans "Schools By Constituency" %}</h3>
-  <div class="input-group col-md-12">
-    <select class="form-control input-sm" onchange="location = this.options[this.selectedIndex].value;">
-      <option value="#">{% trans "Select Constituency" %}</option>
-      {% for sidebar_constituency in all_constituencies %}
-        <option value="{{sidebar_constituency.get_absolute_url}}">{{sidebar_constituency.name|title}}</option>
-      {% endfor %}
-    </select>
-  </div>
-</div>

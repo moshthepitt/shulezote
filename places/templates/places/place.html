@@ -4,7 +4,7 @@
 {% load pagination_tags %}
 
 {% cache 86400 place object.meta.verbose_name object.pk current_page %}
-	{% block title %}{{object.name|title}} {{object.meta.verbose_name}} {% trans "Schools" %}| {{site.name}}{% endblock %}
+	{% block title %}{{object.name|title}} {{object.meta.verbose_name}} {% trans "Schools" %} | {{site.name}}{% endblock %}
 	{% block meta_keywords %}<meta name="keywords" content="{{object.name}}" />{% endblock %}
 	{% block meta_description %}
 		<meta name="description" content='{% trans "Schools in" %} {{object.name|title}} {{object.meta.verbose_name}}' />

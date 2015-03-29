@@ -9,8 +9,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% block meta_keywords %}<meta name="keywords" content="" />{% endblock %}
-    {% block meta_description %}<meta name="description" content="" />{% endblock %}
+    {% block meta_keywords %}<meta name="keywords" content="Schools, Primary Schools, Secondary Schools" />{% endblock %}
+    {% block meta_description %}<meta name="description" content="Shule Zote has profiles for more than 30,000 public, and private schools in Kenya." />{% endblock %}
     {% block other_meta %}{% endblock %}
     <link rel="Shortcut Icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon" />
 
@@ -70,7 +70,8 @@
       {% endblock %}
 
       <footer class="footer">
-        <p>&copy; {{ site.name }} {% now "Y" %}</p>
+        <div class="col-md-6 text-left"><p>&copy; {{ site.name }} {% now "Y" %} | <a href="/about/">About</a></p></div>
+        <div class="col-md-6 text-right"></div>
       </footer>
 
     </div> <!-- /container -->

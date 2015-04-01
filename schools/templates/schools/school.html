@@ -93,10 +93,11 @@
 						  		<li><a href="{{nearby_school.get_absolute_url}}">{{nearby_school.name|title}}</a> ({{nearby_school.distance.m|floatformat:2}}{% trans "m" %})</li>
 						  		{% endfor %}
 						  	</ol>
-					  	</p>	
+					  	</p>
+
+					  	{% include "schools/snippets/sharing.html" with object=object %}	
 					  </div>
 					</div>
-
 				</div>
 			</div>
 

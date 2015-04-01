@@ -105,6 +105,17 @@ h6 {
   margin-bottom:20px;
 }
 
+.share-buttons{
+  margin-top:25px;
+}
+
+.share-buttons .share-item {
+  display: inline;
+  width: 100px;
+  box-sizing: border-box;
+  margin-top: 10px;
+}
+
 /* Custom page footer */
 .footer {
   padding-top: 19px;

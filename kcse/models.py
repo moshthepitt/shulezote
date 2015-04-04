@@ -35,4 +35,4 @@ class Result(models.Model):
         verbose_name_plural = _("KCSE Results")
 
     def __str__(self):
-        "%s %s %s" % (self.shool.name, self.grade, self.year)
+        return "%s %s %s" % (self.school.name, self.grade, self.year)

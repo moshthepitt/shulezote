@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'staff',
     'facts',
     'facilities',
+    'exams',
     # third party
     'allauth',
     'allauth.account',

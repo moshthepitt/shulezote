@@ -5,35 +5,35 @@ from places.models import Division, Location, SubLocation, SchoolZone
 
 
 class CountyAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['name']
 
 
 class ProvinceAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['name']
 
 
 class DistrictAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['name']
 
 
 class DivisionAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['name']
 
 
 class ConstituencyAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['name']
 
 
 class LocationAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['name']
 
 
 class SubLocationAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['name']
 
 
 class SchoolZoneAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['name']
 
 admin.site.register(County, CountyAdmin)
 admin.site.register(Province, ProvinceAdmin)

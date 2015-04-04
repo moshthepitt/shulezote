@@ -53,7 +53,8 @@ INSTALLED_APPS = (
     'staff',
     'facts',
     'facilities',
-    'exams',
+    'kcse',
+    'kcpe',
     # third party
     'allauth',
     'allauth.account',

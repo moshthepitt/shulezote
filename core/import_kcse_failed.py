@@ -45,7 +45,7 @@ def process_passed():
     failed = []
     for row in import_list:
         if row[6].upper().strip() in school_match:
-            school = School.objects.get(pk=school_match[row[6]])
+            school = School.objects.get(pk=school_match[row[6].upper().strip()])
             data = dict(year=int(row[0].strip()),
                         district_code=row[1].strip(),
                         school_code=row[4].strip(),

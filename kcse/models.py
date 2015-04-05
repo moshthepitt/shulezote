@@ -25,7 +25,7 @@ class Result(models.Model):
     knec_code = models.CharField(_("KNEC Code"), max_length=255, blank=True)
     gender = models.CharField(_("Gender"), max_length=1, choices=GENDER_CHOICES, blank=False, help_text=_(
         "Gender"))
-    school = models.ForeignKey(School, verbose_name=_("School"))
+    school = models.ForeignKey(School, verbose_name=_("School"), related_name="kcse_result")
     grade = models.CharField(_("Grade"), max_length=2)
     mean_grade = models.DecimalField(_("Mean Grade"), max_digits=5, decimal_places=2)
     frequency = models.IntegerField(_("Frequency"))

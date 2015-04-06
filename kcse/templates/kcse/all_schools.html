@@ -3,7 +3,7 @@
 {% load cache %}
 {% load pagination_tags %}
 
-{% cache 86400 all_rankings year current_page %}
+{% cache 86400 all_rankings year current_page sort sort_asc %}
 	{% block title %}{% trans "The Best Secondary Schools in Kenya" %} | {{site.name}}{% endblock %}
 	{% block meta_keywords %}<meta name="keywords" content='{% trans "Best Secondary Schools" %}' />{% endblock %}
 	{% block meta_description %}

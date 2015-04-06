@@ -1,5 +1,6 @@
   {% load i18n %}
   {% load pagination_tags %}
+
   <div class="table-responsive">
   	<table class="table">
   		<thead>
@@ -7,9 +8,36 @@
 	  			<th></th>
 		  		<th>{% trans "School" %}</th>
 		  		<th>{% trans "County" %}</th>
-		  		<th>{% trans "No. of students" %}</th>
-		  		<th>{% trans "Mean Grade" %}</th>
-		  		<th>{% trans "No. of As" %}</th>
+		  		<th>
+		  			{% if sort == "-kcse_students" %}
+		  				<a href="?sort=kcse_students" class="sort-link">{% trans "No. of students" %}
+		  				{% if sort == "kcse_students" or sort == "-kcse_students" %}<i class="glyphicon glyphicon-chevron-down"></i>{% endif %}
+		  			{% else %}
+		  				<a href="?sort=-kcse_students" class="sort-link">{% trans "No. of students" %} 
+		  				{% if sort == "kcse_students" or sort == "-kcse_students" %}<i class="glyphicon glyphicon-chevron-up"></i>{% endif %}
+		  			{% endif %}		  			
+		  			</a>
+		  		</th>
+		  		<th>
+		  			{% if sort == "-kcse_mean" %}
+		  				<a href="?sort=kcse_mean" class="sort-link">{% trans "Mean Grade" %}
+		  				{% if sort == "kcse_mean" or sort == "-kcse_mean" %}<i class="glyphicon glyphicon-chevron-down"></i>{% endif %}
+		  			{% else %}
+		  				<a href="?sort=-kcse_mean" class="sort-link">{% trans "Mean Grade" %}
+		  				{% if sort == "kcse_mean" or sort == "-kcse_mean" %}<i class="glyphicon glyphicon-chevron-up"></i>{% endif %}
+		  			{% endif %}		  			
+		  			</a>
+		  		</th>
+		  		<th>
+		  			{% if sort == "-A" %}
+		  				<a href="?sort=A" class="sort-link">{% trans "No. of As" %}
+		  				{% if sort == "A" or sort == "-A" %}<i class="glyphicon glyphicon-chevron-down"></i>{% endif %}
+		  			{% else %}
+		  				<a href="?sort=-A" class="sort-link">{% trans "No. of As" %}
+		  				{% if sort == "A" or sort == "-A" %}<i class="glyphicon glyphicon-chevron-up"></i>{% endif %}
+		  			{% endif %}		  			
+		  			</a>
+		  		</th>
 	  		</tr>
   		</thead>
   		<tbody>

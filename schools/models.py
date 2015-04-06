@@ -1,5 +1,6 @@
 from django.contrib.gis.db import models
-from django.db.models import F, Avg, Sum, Case, When, IntegerField
+from django.db.models import F, Avg, Sum, Case, When, IntegerField, Value as V
+from django.db.models.functions import Coalesce
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
@@ -25,53 +26,53 @@ class KCSEResultsManager(models.GeoManager):
         queryset = queryset.annotate(kcse_students=Sum(F('kcse_result__frequency')))
         # annotate grades
         queryset = queryset.annotate(
-            A=Sum(
-                Case(When(kcse_result__grade=Result.A, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            A=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.A, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             ),
-            AMINUS=Sum(
-                Case(When(kcse_result__grade=Result.AMINUS, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            AMINUS=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.AMINUS, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             ),
-            BPLUS=Sum(
-                Case(When(kcse_result__grade=Result.BPLUS, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            BPLUS=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.BPLUS, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             ),
-            B=Sum(
-                Case(When(kcse_result__grade=Result.B, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            B=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.B, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             ),
-            BMINUS=Sum(
-                Case(When(kcse_result__grade=Result.BMINUS, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            BMINUS=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.BMINUS, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             ),
-            CPLUS=Sum(
-                Case(When(kcse_result__grade=Result.CPLUS, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            CPLUS=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.CPLUS, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             ),
-            C=Sum(
-                Case(When(kcse_result__grade=Result.C, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            C=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.C, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             ),
-            CMINUS=Sum(
-                Case(When(kcse_result__grade=Result.CMINUS, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            CMINUS=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.CMINUS, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             ),
-            DPLUS=Sum(
-                Case(When(kcse_result__grade=Result.DPLUS, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            DPLUS=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.DPLUS, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             ),
-            D=Sum(
-                Case(When(kcse_result__grade=Result.D, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            D=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.D, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             ),
-            DMINUS=Sum(
-                Case(When(kcse_result__grade=Result.DMINUS, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            DMINUS=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.DMINUS, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             ),
-            E=Sum(
-                Case(When(kcse_result__grade=Result.E, then=F('kcse_result__frequency')),
-                     output_field=IntegerField())
+            E=Coalesce(
+                Sum(Case(When(kcse_result__grade=Result.E, then=F('kcse_result__frequency')),
+                    output_field=IntegerField()),), V(0)
             )
         )
         if ordered:

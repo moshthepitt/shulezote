@@ -1,6 +1,7 @@
 from django.views.generic.list import ListView
 
 from schools.models import School
+from kcse.utils import get_last_year
 
 
 class HomePageView(ListView):
@@ -13,4 +14,5 @@ class HomePageView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
+        context['top_secondary_schools'] = School.objects.with_kcse(year=get_last_year())
         return context

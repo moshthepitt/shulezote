@@ -19,8 +19,22 @@
 			</div>
 		</div>
 
+		<hr>
+
+		{% if top_secondary_schools %}
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">{% trans "Top Secondary Schools in Kenya" %}</h3>
+		  </div>
+		  <div class="panel-body">
+		  	 {% include "kcse/snippets/ranked_school_list_no_order.html" with object_list=top_secondary_schools|slice:":10" %}
+
+		  	 <a href="{% url 'kcse:all_schools' %}" class="btn btn-info btn-sm">{% trans "More" %}</a>
+		  </div>
+		</div>
 
 		<hr>
+		{% endif %}
 
 		<div class="col-md-12"><h4>{% trans "Featured Schools" %}</h4></div>
 

@@ -8,6 +8,19 @@ class AllSchoolsView(ListView):
     model = School
     template_name = "kcse/all_schools.html"
 
+    def get_queryset(self):
+        queryset = School.objects.with_kcse(year=self.year)
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super(AllSchoolsView, self).get_context_data(**kwargs)
+        context['current_page'] = self.request.GET.get('page')
+        context['year'] = self.year
         return context
+
+    def dispatch(self, *args, **kwargs):
+        if self.request.GET.get('year'):
+            self.year = self.request.GET.get('year')
+        else:
+            self.year = get_last_year()
+        return super(AllSchoolsView, self).dispatch(*args, **kwargs)

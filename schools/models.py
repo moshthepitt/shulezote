@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from django.db.models import F, Avg, Sum, Case, When, IntegerField
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
@@ -6,6 +7,75 @@ from autoslug import AutoSlugField
 
 from places.models import County, Constituency, Province, District
 from places.models import Division, Location, SubLocation, SchoolZone
+
+
+class KCSEResultsManager(models.GeoManager):
+    def with_kcse(self, year=None):
+        """
+        Makes KCSE results available, and orders by KCSE metrics
+        """
+        from kcse.models import Result
+        queryset = self.exclude(kcse_result=None)
+        # filter year, or not
+        if year:
+            queryset = queryset.filter(kcse_result__year=year)
+        # annotate avg
+        queryset = queryset.annotate(kcse_mean=Avg(F('kcse_result__mean_grade')))
+        # annottate number of students
+        queryset = queryset.annotate(kcse_students=Sum(F('kcse_result__frequency')))
+        # annotate grades
+        queryset = queryset.annotate(
+            A=Sum(
+                Case(When(kcse_result__grade=Result.A, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            ),
+            AMINUS=Sum(
+                Case(When(kcse_result__grade=Result.AMINUS, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            ),
+            BPLUS=Sum(
+                Case(When(kcse_result__grade=Result.BPLUS, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            ),
+            B=Sum(
+                Case(When(kcse_result__grade=Result.B, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            ),
+            BMINUS=Sum(
+                Case(When(kcse_result__grade=Result.BMINUS, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            ),
+            CPLUS=Sum(
+                Case(When(kcse_result__grade=Result.CPLUS, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            ),
+            C=Sum(
+                Case(When(kcse_result__grade=Result.C, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            ),
+            CMINUS=Sum(
+                Case(When(kcse_result__grade=Result.CMINUS, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            ),
+            DPLUS=Sum(
+                Case(When(kcse_result__grade=Result.DPLUS, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            ),
+            D=Sum(
+                Case(When(kcse_result__grade=Result.D, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            ),
+            DMINUS=Sum(
+                Case(When(kcse_result__grade=Result.DMINUS, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            ),
+            E=Sum(
+                Case(When(kcse_result__grade=Result.E, then=F('kcse_result__frequency')),
+                     output_field=IntegerField())
+            )
+        )
+
+        return queryset.order_by('-kcse_mean', '-A', '-kcse_students', 'name')
 
 
 class School(models.Model):
@@ -115,7 +185,7 @@ class School(models.Model):
         "Represented as (longitude, latitude)"))
 
     # You MUST use GeoManager to make Geo Queries
-    objects = models.GeoManager()
+    objects = KCSEResultsManager()
 
     def get_absolute_url(self):
         return reverse('school:school', args=[self.slug])
@@ -140,6 +210,14 @@ class School(models.Model):
 
     def nearby_secondary_schools(self):
         return School.objects.exclude(pk=self.pk).filter(level=School.SECONDARY).distance(self.coordinates).order_by('distance')
+
+    def grade_count(self, grade="A", year=None):
+        if not year:
+            from kcse.utils import get_last_year
+            year = get_last_year()
+        from kcse.models import Result
+        result = Result.objects.filter(school=self).filter(grade=grade).filter(year=year).aggregate(no_of_grades=Sum('frequency'))
+        return result['no_of_grades']
 
     class Meta:
         ordering = ["name"]

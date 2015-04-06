@@ -17,6 +17,19 @@ class Result(models.Model):
         (FEMALE, _('Female'))
     )
 
+    A = "A"
+    AMINUS = "A-"
+    BPLUS = "B+"
+    B = "B"
+    BMINUS = "B-"
+    CPLUS = "C+"
+    C = "C"
+    CMINUS = "C-"
+    DPLUS = "D+"
+    D = "D"
+    DMINUS = "D-"
+    E = "E"
+
     created_on = models.DateTimeField(_("Created on"), auto_now_add=True)
     updated_on = models.DateTimeField(_("Updated on"), auto_now=True)
     year = models.IntegerField(_("Year"))

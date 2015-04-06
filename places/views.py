@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from places.models import Province, County, District, Division, Location, SubLocation
 from places.models import Constituency, SchoolZone
 from schools.models import School
+from kcse.utils import get_last_year
 
 
 class CountyView(DetailView):
@@ -14,6 +15,7 @@ class CountyView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(CountyView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(county=self.object)
+        context['top_school_list'] = School.objects.with_kcse(year=get_last_year(), ordered=False).filter(county=self.object).order_by('-kcse_mean', '-A', '-kcse_students', 'name')
         context['current_page'] = self.request.GET.get('page')
         return context
 
@@ -25,6 +27,7 @@ class ProvinceView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProvinceView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(province=self.object)
+        context['top_school_list'] = School.objects.with_kcse(year=get_last_year(), ordered=False).filter(province=self.object).order_by('-kcse_mean', '-A', '-kcse_students', 'name')
         context['current_page'] = self.request.GET.get('page')
         return context
 
@@ -36,6 +39,7 @@ class DistrictView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(DistrictView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(district=self.object)
+        context['top_school_list'] = School.objects.with_kcse(year=get_last_year(), ordered=False).filter(district=self.object).order_by('-kcse_mean', '-A', '-kcse_students', 'name')
         context['object'] = self.object
         context['current_page'] = self.request.GET.get('page')
         return context
@@ -52,6 +56,7 @@ class DivisionView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(DivisionView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(division=self.object)
+        context['top_school_list'] = School.objects.with_kcse(year=get_last_year(), ordered=False).filter(division=self.object).order_by('-kcse_mean', '-A', '-kcse_students', 'name')
         context['object'] = self.object
         context['current_page'] = self.request.GET.get('page')
         return context
@@ -68,6 +73,7 @@ class LocationView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(LocationView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(location=self.object)
+        context['top_school_list'] = School.objects.with_kcse(year=get_last_year(), ordered=False).filter(location=self.object).order_by('-kcse_mean', '-A', '-kcse_students', 'name')
         context['object'] = self.object
         context['current_page'] = self.request.GET.get('page')
         return context
@@ -84,6 +90,7 @@ class SubLocationView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(SubLocationView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(sub_location=self.object)
+        context['top_school_list'] = School.objects.with_kcse(year=get_last_year(), ordered=False).filter(sub_location=self.object).order_by('-kcse_mean', '-A', '-kcse_students', 'name')
         context['object'] = self.object
         context['current_page'] = self.request.GET.get('page')
         return context
@@ -100,6 +107,7 @@ class SchoolZoneView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(SchoolZoneView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(school_zone=self.object)
+        context['top_school_list'] = School.objects.with_kcse(year=get_last_year(), ordered=False).filter(school_zone=self.object).order_by('-kcse_mean', '-A', '-kcse_students', 'name')
         context['object'] = self.object
         context['current_page'] = self.request.GET.get('page')
         return context
@@ -116,6 +124,7 @@ class ConstituencyView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ConstituencyView, self).get_context_data(**kwargs)
         context['school_list'] = School.objects.filter(constituency=self.object)
+        context['top_school_list'] = School.objects.with_kcse(year=get_last_year(), ordered=False).filter(constituency=self.object).order_by('-kcse_mean', '-A', '-kcse_students', 'name')
         context['object'] = self.object
         context['current_page'] = self.request.GET.get('page')
         return context

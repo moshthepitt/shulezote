@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load cache %}
+{% load pagination_tags %}
+
+{% cache 86400 all_rankings year current_page sort sort_asc object.pk object.meta.model_name %}
+	{% block title %}{% trans "The Best Secondary Schools in" %} {{object.name|title}} {{object.meta.verbose_name}} | {{site.name}}{% endblock %}
+	{% block meta_keywords %}<meta name="keywords" content='{% trans "Best Secondary Schools" %}, {{object.name|title}} {{object.meta.verbose_name}}' />{% endblock %}
+	{% block meta_description %}
+		<meta name="description" content='{% trans "The Best Secondary Schools in" %} {{object.name|title}} {{object.meta.verbose_name}}' />
+	{% endblock %}	
+	
+	{% block main_content %}
+
+		<header>
+			<h1>{% trans "The Best Secondary Schools in" %} {{object.name|title}} {{object.meta.verbose_name}} {{year}}</h1>
+		</header>
+
+		<div class="panel panel-default">
+			{% if object_list %}
+			  	{% autopaginate object_list %}
+
+			  	{% include "kcse/snippets/ranked_school_list.html" with object_list=object_list %}
+
+			  	<div class="clearfix text-center">{% paginate %}</div>
+		  	{% else %}
+		  		<br>
+		  		<div class="col-md-12"><p>{% trans "No schools to show" %}</p></div>
+		  		<br>
+		  	{% endif %}
+		</div>
+
+	{% endblock %}
+
+	{% block sidebar_filter %}
+		<div class="widget" id="custom-search-input">
+		  <h3>{% trans "Filter Year" %}</h3>
+		  <div class="input-group col-md-12">
+		  	<form method="GET">
+		    <select class="form-control input-sm" name="year" onchange="this.form.submit()">
+		      <option value="2010">{% trans "Select Year" %}</option>
+		      {% for kcse_year in kcse_years %}
+		        <option value="{{kcse_year}}" {% ifequal kcse_year year %}selected="selected"{% endifequal %}>{{kcse_year}}</option>
+		      {% endfor %}
+		    </select>
+		    </form>
+		  </div>
+		</div>
+	{% endblock %}
+
+{% endcache %}
+

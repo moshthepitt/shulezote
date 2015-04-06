@@ -1,0 +1,28 @@
+  {% load i18n %}
+  {% load pagination_tags %}
+  <div class="table-responsive">
+  	<table class="table">
+  		<thead>
+	  		<tr>
+	  			<th></th>
+		  		<th>{% trans "School" %}</th>
+		  		<th>{% trans "County" %}</th>
+		  		<th>{% trans "No. of students" %}</th>
+		  		<th>{% trans "Mean Grade" %}</th>
+		  		<th>{% trans "No. of As" %}</th>
+	  		</tr>
+  		</thead>
+  		<tbody>
+		{% for object in object_list %}
+			<tr>
+				<td>{{forloop.counter0|add:page_obj.start_index}}</td>
+				<td><a href="{{object.get_absolute_url}}">{{object.name|title}}</a></td>
+				<td>{{object.county.name|title}}</td>
+				<td>{{object.kcse_students}}</td>	
+				<td>{{object.kcse_mean|floatformat:2}}</td>	
+				<td>{{object.A}}</td>					
+			</tr>
+		{% endfor %}
+		</tbody>
+  	</table>
+  </div>

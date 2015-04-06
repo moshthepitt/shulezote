@@ -10,7 +10,7 @@ from places.models import Division, Location, SubLocation, SchoolZone
 
 
 class KCSEResultsManager(models.GeoManager):
-    def with_kcse(self, year=None):
+    def with_kcse(self, year=None, ordered=True):
         """
         Makes KCSE results available, and orders by KCSE metrics
         """
@@ -74,8 +74,9 @@ class KCSEResultsManager(models.GeoManager):
                      output_field=IntegerField())
             )
         )
-
-        return queryset.order_by('-kcse_mean', '-A', '-kcse_students', 'name')
+        if ordered:
+            queryset = queryset.order_by('-kcse_mean', '-A', '-kcse_students', 'name')
+        return queryset
 
 
 class School(models.Model):

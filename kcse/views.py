@@ -19,8 +19,8 @@ class AllSchoolsView(ListView):
         return context
 
     def dispatch(self, *args, **kwargs):
-        if self.request.GET.get('year'):
-            self.year = self.request.GET.get('year')
+        if self.request.GET.get('year') and self.request.GET.get('year').isdigit():
+            self.year = int(self.request.GET.get('year'))
         else:
             self.year = get_last_year()
         return super(AllSchoolsView, self).dispatch(*args, **kwargs)

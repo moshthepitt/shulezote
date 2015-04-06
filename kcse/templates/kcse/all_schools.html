@@ -2,16 +2,13 @@
 {% load i18n %}
 {% load cache %}
 {% load pagination_tags %}
-{% load humanize %}
 
 {% cache 86400 all_rankings year current_page %}
 	{% block title %}{% trans "The Best Secondary Schools in Kenya" %} | {{site.name}}{% endblock %}
 	{% block meta_keywords %}<meta name="keywords" content='{% trans "Best Secondary Schools" %}' />{% endblock %}
 	{% block meta_description %}
 		<meta name="description" content='{% trans "The Best Secondary Schools in Kenya" %}' />
-	{% endblock %}
-
-	
+	{% endblock %}	
 	
 	{% block main_content %}
 
@@ -22,35 +19,28 @@
 		<div class="panel panel-default">
 		  {% autopaginate object_list %}
 
-		  <div class="table-responsive">
-		  	<table class="table">
-		  		<thead>
-			  		<tr>
-			  			<th></th>
-				  		<th>{% trans "School" %}</th>
-				  		<th>{% trans "County" %}</th>
-				  		<th>{% trans "No. of students" %}</th>
-				  		<th>{% trans "Mean Grade" %}</th>
-				  		<th>{% trans "No. of As" %}</th>
-			  		</tr>
-		  		</thead>
-		  		<tbody>
-				{% for object in object_list %}
-					<tr>
-						<td>{{forloop.counter}}</td>
-						<td><a href="{{object.get_absolute_url}}">{{object.name|title}}</a></td>
-						<td>{{object.county.name|title}}</td>
-						<td>{{object.kcse_students}}</td>	
-						<td>{{object.kcse_mean|floatformat:2}}</td>	
-						<td>{{object.A}}</td>					
-					</tr>
-				{% endfor %}
-				</tbody>
-		  	</table>
-		  </div>
+		  {% include "kcse/snippets/ranked_school_list.html" with object_list=object_list %}
 
 		  <div class="clearfix text-center">{% paginate %}</div>
 		</div>
 
 	{% endblock %}
+
+	{% block sidebar_filter %}
+		<div class="widget" id="custom-search-input">
+		  <h3>{% trans "Filter Year" %}</h3>
+		  <div class="input-group col-md-12">
+		  	<form method="GET">
+		    <select class="form-control input-sm" name="year" onchange="this.form.submit()">
+		      <option value="2010">{% trans "Select Year" %}</option>
+		      {% for kcse_year in kcse_years %}
+		        <option value="{{kcse_year}}" {% ifequal kcse_year year %}selected="selected"{% endifequal %}>{{kcse_year}}</option>
+		      {% endfor %}
+		    </select>
+		    </form>
+		  </div>
+		</div>
+	{% endblock %}
+
 {% endcache %}
+

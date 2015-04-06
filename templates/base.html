@@ -61,6 +61,7 @@
         {% block main_content %}{% endblock %}
         </div>
         <div class="col-md-3" id="sidebar">
+        {% block sidebar_filter %}{% endblock %}
         {% block sidebar_content %}
           {% include "snippets/sidebar.html" %}
         {% endblock %}

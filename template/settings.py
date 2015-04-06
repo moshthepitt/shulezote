@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -107,28 +106,38 @@ USE_L10N = True
 USE_TZ = True
 
 # Templates
-TEMPLATE_DIRS = [
-    os.path.join(BASE_DIR, 'templates'),
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # default
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+                # custom
+                'django.template.context_processors.request',
+                "allauth.account.context_processors.account",
+                "allauth.socialaccount.context_processors.socialaccount",
+                "core.context_processors.site_processor",
+                "core.context_processors.debug_processor",
+            ],
+            # 'loaders': [
+            #     'django.template.loaders.filesystem.Loader',
+            #     'django.template.loaders.app_directories.Loader',
+            #     'django.template.loaders.eggs.Loader',
+            # ],
+        },
+    },
 ]
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = TCP + (
-    'django.core.context_processors.request',
-
-    "allauth.account.context_processors.account",
-    "allauth.socialaccount.context_processors.socialaccount",
-
-    "core.context_processors.site_processor",
-    "core.context_processors.debug_processor",
-    "places.context_processors.county_processor",
-    "places.context_processors.constituency_processor",
-    "kcse.context_processors.year_processor",
-)
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

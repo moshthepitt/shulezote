@@ -53,7 +53,7 @@ class LocationView(ListView):
         queryset = School.objects.with_kcse(year=self.year, ordered=False)
         if self.object.meta().model_name == "county":
             queryset = queryset.filter(county=self.object)
-        if self.object.meta().model_name == "province":
+        elif self.object.meta().model_name == "province":
             queryset = queryset.filter(province=self.object)
         elif self.object.meta().model_name == "district":
             queryset = queryset.filter(district=self.object)

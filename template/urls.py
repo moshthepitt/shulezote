@@ -20,6 +20,7 @@ sitemap_urls = patterns('',
 urlpatterns = patterns('',
     url(r'^$', cache_page(60 * 60 * 4)(HomePageView.as_view()), name='home'),
 
+    url(r'^kcse-rankings/', include('kcse.urls', namespace="kcse")),
     url(r'^place/', include('places.urls', namespace="place")),
     url(r'^school/', include('schools.urls', namespace="school")),
 

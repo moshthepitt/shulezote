@@ -1,7 +1,7 @@
 from django.views.generic.list import ListView
 
 from schools.models import School
-from kcse.views import get_last_year
+from kcse.utils import get_last_year
 
 
 class AllSchoolsView(ListView):

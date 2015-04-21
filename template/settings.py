@@ -129,6 +129,9 @@ TEMPLATES = [
                 "allauth.socialaccount.context_processors.socialaccount",
                 "core.context_processors.site_processor",
                 "core.context_processors.debug_processor",
+                "places.context_processors.county_processor",
+                # "places.context_processors.constituency_processor",
+                "kcse.context_processors.year_processor",
             ],
             # 'loaders': [
             #     'django.template.loaders.filesystem.Loader',

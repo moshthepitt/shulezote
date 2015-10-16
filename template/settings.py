@@ -123,8 +123,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # custom
                 'django.template.context_processors.request',
-                "allauth.account.context_processors.account",
-                "allauth.socialaccount.context_processors.socialaccount",
                 "core.context_processors.site_processor",
                 "core.context_processors.debug_processor",
                 "places.context_processors.county_processor",

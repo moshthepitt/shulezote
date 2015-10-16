@@ -123,6 +123,14 @@ h6 {
   border-top: 1px solid #e5e5e5;
 }
 
+.adsense-advert {
+  overflow:hidden;
+}
+
+.top-margin {
+  margin-top:5px;
+}
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {

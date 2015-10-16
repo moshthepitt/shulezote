@@ -3,3 +3,4 @@ window.setTimeout(function() {
         $(this).remove(); 
     });
 }, 3000);
+

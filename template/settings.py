@@ -110,7 +110,6 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
         ],
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 # default
@@ -129,11 +128,13 @@ TEMPLATES = [
                 # "places.context_processors.constituency_processor",
                 "kcse.context_processors.year_processor",
             ],
-            # 'loaders': [
-            #     'django.template.loaders.filesystem.Loader',
-            #     'django.template.loaders.app_directories.Loader',
-            #     'django.template.loaders.eggs.Loader',
-            # ],
+            'loaders': [
+                ('django.template.loaders.cached.Loader', [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'django.template.loaders.eggs.Loader',
+                ]),
+            ],
         },
     },
 ]

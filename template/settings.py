@@ -208,6 +208,14 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
+# Suit
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'ShuleZote',
+    'SEARCH_URL': '',
+
+}
+
 try:
     from local_settings import *
 except ImportError, e:

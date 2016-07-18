@@ -87,6 +87,8 @@
 					  		{{school.get_level_display|lower}}.
 					  	</p>
 
+					  	{% if object.description %}<div>{{object.description|linebreaks}}</div>{% endif %}
+
 					  	<p>{% trans "Nearby schools:" %}
 						  	<ol>
 						  		{% for nearby_school in school.nearby_schools|slice:":5" %}

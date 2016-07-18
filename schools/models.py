@@ -150,6 +150,7 @@ class School(models.Model):
     code = models.CharField(_("Code"), max_length=255, blank=True)
     name = models.CharField(_("Name of School"), max_length=255, blank=False)
     slug = AutoSlugField(populate_from='name', unique=True)
+    description = models.TextField(_("Description"), blank=True)
     address = models.CharField(_("Address"), max_length=255, blank=True)
     level = models.CharField(_("Level"), max_length=1, choices=LEVEL_CHOICES, blank=False, help_text=_(
         "Primary or secondary school"))

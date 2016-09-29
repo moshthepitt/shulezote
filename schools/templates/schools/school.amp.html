@@ -104,6 +104,13 @@
       cursor:pointer!important;
     }
 
+    .amp-ad-container {
+      display:block;
+      width:100%;
+      margin-top:15px;
+      margin-bottom:15px;
+    }
+
     amp-img { background-color: grey; }
 
     .cf:after { content: ""; display: table; clear: both; }
@@ -244,11 +251,13 @@
         <a name=topofpage></a>
 
         {% if not DEBUG_MODE %}
+        <div class="amp-ad-container">
         <amp-ad width=200 height=90
             type="adsense"
             data-ad-client="ca-pub-4533628918380852"
             data-ad-slot="5416102558">
         </amp-ad>
+        </div>
         {% endif %}
 
         <p>{{object.name|title}} {% trans "is in" %} {{object.county.name|title}} {{object.county.meta.verbose_name}} ({{object.constituency.name|title}} {{object.constituency.meta.verbose_name}}).</p>
@@ -265,11 +274,13 @@
         <a href="https://{{site.name}}{{object.get_absolute_url}}" class="btn">{% trans "View map and search for more schools" %}</a>
 
         {% if not DEBUG_MODE %}
+        <div class="amp-ad-container">
         <amp-ad width=300 height=250
           type="adsense"
           data-ad-client="ca-pub-4533628918380852"
           data-ad-slot="2695613756">
         </amp-ad>
+        </div>
         {% endif %}
 
         <div class="facts-area">
@@ -352,11 +363,13 @@
           <a href="https://{{site.name}}{{object.get_absolute_url}}" class="btn">{% trans "View map and search for more schools" %}</a>
 
           {% if not DEBUG_MODE %}
+          <div class="amp-ad-container">
           <amp-ad width=300 height=250
             type="adsense"
             data-ad-client="ca-pub-4533628918380852"
             data-ad-slot="2695613756">
           </amp-ad>
+          </div>
           {% endif %}
         </div>
 

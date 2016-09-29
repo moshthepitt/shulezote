@@ -131,6 +131,10 @@ h6 {
   margin-bottom:15px;
 }
 
+.adlink-ads {
+  margin-bottom:10px;
+}
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {

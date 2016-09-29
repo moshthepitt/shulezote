@@ -13,6 +13,7 @@
 	{% endblock %}
 
 	{% block extrahead %}
+		<link rel="amphtml" href="https://{{site.name}}{% url 'school:school_amp' object.slug %}">
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 		<script type="text/javascript">
 	      function initialize() {
@@ -67,6 +68,7 @@
 				<h1><span itemprop="name">{{object.name|title}}</span></h1>
 			</header>	
 
+			{% if not DEBUG_MODE %}
 			<div class="row">
 				<div class="col-md-12 adlink-ads adsense-advert">
 					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -81,6 +83,7 @@
 					</script>
 				</div>
 			</div>		
+			{% endif %}
 
 			<div class="row">
 				<div class="col-md-12"><div id="map-canvas"></div></div>

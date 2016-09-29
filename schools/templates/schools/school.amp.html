@@ -1,0 +1,391 @@
+{% load i18n %}
+<!doctype html>
+<html amp lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel=stylesheet type="text/css">
+  <link href="https://fonts.gstatic.com" rel="dns-prefetch preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,700" rel=stylesheet type="text/css">
+  
+  <meta charset="utf-8"><meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width,minimum-scale=1" name="viewport">
+  <title>{{object.name|title}} {{object.meta.verbose_name}} | {{object.county.name|title}} {{object.county.meta.verbose_name}} | {{site.name}}</title>
+  <meta content='{{object.name|title}} {{object.meta.verbose_name}} {% trans "in" %} {{object.county.name}} {{object.county.meta.verbose_name}}' name="description">
+  <link href="https://{{site.name}}{{object.get_absolute_url}}" rel="canonical">
+  <script type="application/ld+json">  
+    {
+      "@context": "http://schema.org",
+      {% if school.level == school.PRIMARY %}
+      "@type": "ElementarySchool",
+      {% elif school.level == school.SECONDARY %}
+      "@type": "HighSchool",
+      {% endif %}      
+      "mainEntityOfPage": "https://{{site.name}}{{object.get_absolute_url}}",
+      "headline": "{{object.name|title}}",
+      "description": '{{object.name|title}} {{object.meta.verbose_name}} {% trans "in" %} {{object.county.name}} {{object.county.meta.verbose_name}}',
+    }
+  </script>
+  <style amp-custom>  
+    /** Syntax highlighting styles */
+    .highlight { background: #fff; }
+    .highlighter-rouge .highlight { background: #eef; }
+    .highlight .c { color: #998; font-style: italic; }
+    .highlight .err { color: #a61717; background-color: #e3d2d2; }
+    .highlight .k { font-weight: bold; }
+    .highlight .o { font-weight: bold; }
+    .highlight .cm { color: #998; font-style: italic; }
+    .highlight .cp { color: #999; font-weight: bold; }
+    .highlight .c1 { color: #998; font-style: italic; }
+    .highlight .cs { color: #999; font-weight: bold; font-style: italic; }
+    .highlight .gd { color: #000; background-color: #fdd; }
+    .highlight .gd .x { color: #000; background-color: #faa; }
+    .highlight .ge { font-style: italic; }
+    .highlight .gr { color: #a00; }
+    .highlight .gh { color: #999; }
+    .highlight .gi { color: #000; background-color: #dfd; }
+    .highlight .gi .x { color: #000; background-color: #afa; }
+    .highlight .go { color: #888; }
+    .highlight .gp { color: #555; }
+    .highlight .gs { font-weight: bold; }
+    .highlight .gu { color: #aaa; }
+    .highlight .gt { color: #a00; }
+    .highlight .kc { font-weight: bold; }
+    .highlight .kd { font-weight: bold; }
+    .highlight .kp { font-weight: bold; }
+    .highlight .kr { font-weight: bold; }
+    .highlight .kt { color: #458; font-weight: bold; }
+    .highlight .m { color: #099; }
+    .highlight .s { color: #d14; }
+    .highlight .na { color: #008080; }
+    .highlight .nb { color: #0086B3; }
+    .highlight .nc { color: #458; font-weight: bold; }
+    .highlight .no { color: #008080; }
+    .highlight .ni { color: #800080; }
+    .highlight .ne { color: #900; font-weight: bold; }
+    .highlight .nf { color: #900; font-weight: bold; }
+    .highlight .nn { color: #555; }
+    .highlight .nt { color: #000080; }
+    .highlight .nv { color: #008080; }
+    .highlight .ow { font-weight: bold; }
+    .highlight .w { color: #bbb; }
+    .highlight .mf { color: #099; }
+    .highlight .mh { color: #099; }
+    .highlight .mi { color: #099; }
+    .highlight .mo { color: #099; }
+    .highlight .sb { color: #d14; }
+    .highlight .sc { color: #d14; }
+    .highlight .sd { color: #d14; }
+    .highlight .s2 { color: #d14; }
+    .highlight .se { color: #d14; }
+    .highlight .sh { color: #d14; }
+    .highlight .si { color: #d14; }
+    .highlight .sx { color: #d14; }
+    .highlight .sr { color: #009926; }
+    .highlight .s1 { color: #d14; }
+    .highlight .ss { color: #990073; }
+    .highlight .bp { color: #999; }
+    .highlight .vc { color: #008080; }
+    .highlight .vg { color: #008080; }
+    .highlight .vi { color: #008080; }
+    .highlight .il { color: #099; }
+
+    .icon > svg { display: inline-block; width: 16px; height: 16px; vertical-align: middle; }
+    .icon > svg path { fill: #828282; }
+
+    .btn {
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: #fff!important;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none!important;
+      display: inline-block;
+      font-size: 16px;
+      margin-top:15px;
+      cursor:pointer!important;
+    }
+
+    amp-img { background-color: grey; }
+
+    .cf:after { content: ""; display: table; clear: both; }
+
+    main { display: block; }
+
+    body { font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; margin: 0; padding: 0; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-font-feature-settings: "liga=1, dlig=1"; -ms-font-feature-settings: "liga", "dlig"; -webkit-font-feature-settings: "liga", "dlig"; -o-font-feature-settings: "liga", "dlig"; font-feature-settings: "liga", "dlig"; }
+
+    .site-header { position: relative; width: 100%; max-width: 700px; margin: 16px auto 0 auto; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+    .site-title{
+      font-weight: 700;
+      text-decoration: none;
+      color: rgb(0, 0, 0);
+      font-style: normal;
+      font-size: 18px;
+      line-height: 30px;
+    }
+
+    @media only screen and (max-width: 800px) { .site-header { padding: 0 16px; } }
+    .site-header .page-links { display: block; position: absolute; top: 10px; right: 16px; font-weight: 200; font-style: normal; font-size: 18px; line-height: 30px; }
+    .site-header .page-links a { text-decoration: none; color: #999999; }
+    .site-header .page-links a:hover { color: #333333; }
+
+    .blog-header { width: 100%; max-width: 700px; margin: 0 auto; position: relative; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+    .blog-header .blog-title { margin-bottom: 8px; font-size: 50px; font-weight: 700; letter-spacing: -2px; outline: 0; line-height: 50px; word-break: break-word; color: #333333; }
+    .blog-header .blog-description { font-size: 28px; margin: 0 0 20px; padding: 0; line-height: 1.2; color: #666666; font-weight: 300; }
+
+    .content { width: 100%; max-width: 700px; margin: 25px auto 0 auto; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+    @media only screen and (max-width: 800px) { .content { padding: 0 16px; } }
+    .content article { padding: 20px 0; border-bottom: 1px solid #f2f2f0; }
+    .content article:last-child { border-bottom: 0px; }
+    .content article .post-title { letter-spacing: -0.02em; font-weight: 700; font-style: normal; display: block; font-size: 36px; line-height: 1.15; margin: 0 0; }
+    .content article .post-title a { text-decoration: none; color: #333332; }
+    .content article .post-title a:hover { text-decoration: none; }
+    .content article .post-excerpt { letter-spacing: -0.02em; font-weight: 300; font-style: normal; font-size: 20px; line-height: 1.59; color: #666665; }
+    .content article .post-meta { font-size: 14px; color: #b3b3b1; line-height: 30px; }
+    .content article .post-meta a { color: #b3b3b1; text-decoration: none; }
+    .content article .post-meta a:hover { text-decoration: underline; }
+
+    .post-template .content { max-width: 700px; }
+
+    .index-headline { border-top: 1px solid #dededc; margin: 0; padding: 16px 0; }
+    .index-headline span { color: #b3b3b1; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+    .pagination { text-align: center; padding: 16px 0 0; font-size: 12px; }
+    .pagination a { color: #999999; text-decoration: none; }
+    .pagination a:hover { color: #333333; }
+
+    .site-footer { margin: 0 auto; padding: 48px 0; width: 100%; max-width: 700px; font-size: 12px; text-align: center; color: #999999; line-height: 17.6px; }
+    .site-footer a { color: #666666; text-decoration: none; }
+    .site-footer a:hover { color: #333333; }
+
+    .post .post-meta { font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+    .post .post-title { font-weight: 700; font-style: normal; letter-spacing: -0.04em; font-size: 50px; line-height: 1.1; color: #333332; margin-bottom: 50px; }
+    .post .author-image { background-image: url('/i/s/ageitgey.github.io/amplify//assets/images/author.jpg'); display: inline-block; width: 30px; height: 30px; line-height: 30px; margin-right: 8px; margin-bottom: -10px; float: left; background-size: cover; border-radius: 100%; text-indent: -9999px; }
+    .post .post-meta-text { color: #b3b3b1; letter-spacing: -0.02em; font-weight: 400; font-style: normal; font-size: 14px; overflow: hidden; font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; white-space: nowrap; text-overflow: ellipsis; }
+    .post .post-content { width: 100%; font-family: Georgia, Cambria, "Times New Roman", Times, "Lora", serif; color: #333333; }
+    .post .post-content h1, .post .post-content h2, .post .post-content h3 { font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+    .post .post-content h3, .post .post-content h4, .post .post-content h5, .post .post-content h6 { letter-spacing: -0.02em; font-weight: 700; font-style: normal; font-size: 24px; line-height: 1.3; margin-top: 50px; margin-bottom: 0px; font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+    .post .post-content h3 { font-size: 36px; }
+    .post .post-content h2, .post .post-content h1 { letter-spacing: -0.02em; font-weight: 700; font-style: normal; font-size: 42px; line-height: 1.2; margin-top: 50px; margin-bottom: 0px; }
+    .post .post-content p { font-weight: 400; font-style: normal; font-size: 16px; line-height: 1.2; letter-spacing: -.002em; margin-top: 10px; margin-bottom: 0; color: #333333; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; }
+    .post .post-content a { color: #333333; text-decoration: underline; }
+    .post .post-content amp-img, .post .post-content amp-youtube { margin-top: 30px; }
+    .post .post-content figure { margin: 0; padding: 0 0 30px; }
+    .post .post-content figcaption { font-weight: 400; font-style: italic; font-size: 16px; line-height: 1.3; color: #666665; outline: 0; z-index: 300; text-align: center; }
+    .post .post-content hr { border: 0; padding: 0; display: block; width: 15%; margin: 30px auto; border: 0px solid #dddddd; border-top: 1px solid #dddddd; }
+    .post .post-content blockquote { margin: 0 0 30px; margin-left: -26px; border-left: 3px solid #57ad68; padding-left: 20px; }
+    .post .post-content blockquote p { letter-spacing: 0.01rem; font-weight: 400; mborder-left: 3px solid #57ad68; mpadding-left: 20px; mmargin-left: -26px; padding-bottom: 3px; }
+    .post .post-content ul, .post .post-content ol { padding: 0 0 30px; margin: 0; }
+    .post .post-content li { padding: 0; font-weight: 400; font-style: normal; font-size: 23px; line-height: 30px; margin-left: 30px; margin-bottom: 12px; padding-top: 2px; }
+    .post .post-content li p { padding: 0 0 1.618rem; }
+    .post .post-content ol li { list-style-type: decimal; }
+    .post .bottom-teaser { padding: 50px 0 0 0; font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; }
+    .post .bottom-teaser hr { border: 0; padding: 0; display: block; width: 15%; margin: 16px 0 16px 100px; border: 0px solid #dddddd; border-top: 1px solid #dddddd; }
+    .post .bottom-teaser .isLeft { float: left; width: 47%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+    @media only screen and (max-width: 800px) { .post .bottom-teaser .isLeft { width: 100%; padding-bottom: 32px; } }
+    .post .bottom-teaser .isLeft .bio { margin-top: 18px; margin-bottom: 18px; }
+    .post .bottom-teaser .isLeft .username { margin-left: 4px; margin-right: 18px; margin-bottom: 18px; }
+    .post .bottom-teaser .isLeft .index-headline { padding-bottom: 32px; }
+    .post .bottom-teaser .isLeft a { color: black; text-decoration: none; }
+    .post .bottom-teaser .isLeft a:hover { color: #333333; text-decoration: underline; }
+    .post .bottom-teaser .isLeft .author-image { display: block; width: 80px; height: 80px; float: left; background-size: cover; border-radius: 100%; text-indent: -9999px; }
+    .post .bottom-teaser .isLeft h4 { font-size: 18px; line-height: 1.1; font-weight: 700; padding: 0; margin: 0; padding-left: 100px; }
+    .post .bottom-teaser .isLeft p { font-size: 14px; line-height: 1.3; font-weight: 400; padding: 0; margin: 0; padding-left: 100px; }
+    .post .bottom-teaser .isLeft p.published { color: #999999; }
+    .post .bottom-teaser .isRight { float: right; width: 47%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+    @media only screen and (max-width: 800px) { .post .bottom-teaser .isRight { width: 100%; } }
+    .post .bottom-teaser .isRight .index-headline { padding-bottom: 32px; }
+    .post .bottom-teaser .isRight .site-footer { margin: 0; padding: 0; color: #333333; text-align: left; font-size: 14px; line-height: 1.3; color: #999999; }
+    .post .bottom-teaser .isRight .site-footer a { color: #333333; text-decoration: none; }
+    .post .bottom-teaser .isRight .site-footer a:hover { text-decoration: underline; }
+    .post .bottom-teaser .isRight .site-footer .poweredby { display: block; padding-bottom: 18px; font-weight: 700; color: #333333; }
+
+    .share { text-align: right; padding: 20px 0 0; }
+    .share a { text-decoration: none; color: #bbbbbb; padding-left: 12px; }
+    .share a .hidden { display: none; }
+    .share a:hover { color: #333333; }
+
+    pre, code { font-size: 15px; border: 1px solid #e8e8e8; border-radius: 3px; background-color: #eeeeff; }
+
+    code { padding: 1px 5px; }
+
+    pre { padding: 8px 12px; overflow-x: scroll; }
+    pre > code { border: 0; padding-right: 0; padding-left: 0; }
+
+  </style>
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}
+  </style>
+  <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript><script async src="https://cdn.ampproject.org/v0.js"></script>
+  {% if not DEBUG_MODE %}
+  <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  {% endif %}  
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="https://{{site.name}}{% url 'home' %}" class="site-title">{{site.name}}</a>
+
+    <div class="page-links">
+      <a class="page-link" href="https://{{site.name}}{% url 'home' %}" target="_blank">{% trans "Home" %}</a>
+      • <a class="page-link" href="https://{{site.name}}{{object.county.get_absolute_url}}" target="_blank">{{object.county.name|title}}</a>
+      • <a class="page-link" href="https://{{site.name}}{{object.get_absolute_url}}" target="_blank">{{object.name|title}}</a>
+    </div>
+  </header>
+
+
+  <main class=content role=main>
+    <article class=post>
+      <div class="post-meta">
+        <h1 class="post-title">{{object.name|title}}</h1>
+      </div>
+
+      <section class="post-content">
+        <a name=topofpage></a>
+
+        {% if not DEBUG_MODE %}
+        <amp-ad width=200 height=90
+            type="adsense"
+            data-ad-client="ca-pub-4533628918380852"
+            data-ad-slot="5416102558">
+        </amp-ad>
+        {% endif %}
+
+        <p>{{object.name|title}} {% trans "is in" %} {{object.county.name|title}} {{object.county.meta.verbose_name}} ({{object.constituency.name|title}} {{object.constituency.meta.verbose_name}}).</p>
+        <p>
+          {{object.name|title}}
+          {% trans "is a" %}
+          {{school.get_student_gender_display|lower}}               
+          {{school.get_school_type_display|lower}}
+          {{school.get_level_display|lower}}.
+        </p>
+
+        {% if object.description %}<div>{{object.description|linebreaks}}</div>{% endif %}
+
+        <a href="https://{{site.name}}{{object.get_absolute_url}}" class="btn">{% trans "View map and search for more schools" %}</a>
+
+        {% if not DEBUG_MODE %}
+        <amp-ad width=300 height=250
+          type="adsense"
+          data-ad-client="ca-pub-4533628918380852"
+          data-ad-slot="2695613756">
+        </amp-ad>
+        {% endif %}
+
+        <div class="facts-area">
+          <h5>{% trans "Details" %}</h5>
+          <p><strong>{% trans "School Code" %}</strong>: {{school.code|default_if_none:"N/A"}}</p>
+          <p>
+            <strong>{% trans "Address" %}</strong>: {{school.address|title|default_if_none:"N/A"}}
+          </p>
+          <p><strong>{% trans "Level" %}</strong>: {{school.get_level_display|default_if_none:"N/A"}}</p>
+          <p><strong>{% trans "Day/Boarding" %}</strong>: {{school.get_school_type_display|default_if_none:"N/A"}}</p>
+          <p><strong>{% trans "Gender" %}</strong>: {{school.get_student_gender_display|default_if_none:"N/A"}}</p>
+          <p><strong>{% trans "Ownership" %}</strong>: {{school.get_ownership_display|default_if_none:"N/A"}}</p>
+          <p><strong>{% trans "Sponsor" %}</strong>: {{school.get_sponsor_display|default_if_none:"N/A"}}</p>
+          <p><strong>{% trans "Student Needs" %}</strong>: {{school.get_student_needs_display|default_if_none:"N/A"}}</p>
+
+          <h5>{% trans "Facts" %}</h5>
+          {% for fact in school.facts %}
+          <p><strong>{{fact.name}}</strong>: {{fact.value}}</p>
+          {% endfor %}
+
+          <h5>{% trans "Location" %}</h5>
+          {% if school.county %}
+            <p>
+              <strong>{% trans "County" %}</strong>: 
+              <a href="https://{{site.name}}{{school.county.get_absolute_url}}">{{school.county|title}}</a>
+            </p>
+          {% endif %}
+          {% if school.constituency %}
+            <p>
+              <strong>{% trans "Constituency" %}</strong>: 
+              <a href="https://{{site.name}}{{school.constituency.get_absolute_url}}">{{school.constituency|title}}</a>
+            </p>
+          {% endif %}
+          {% if school.province %}
+            <p>
+              <strong>{% trans "Province" %}</strong>: 
+              <a href="https://{{site.name}}{{school.province.get_absolute_url}}">{{school.province|title}}</a>
+            </p>
+          {% endif %}
+          {% if school.district %}
+            <p>
+              <strong>{% trans "District" %}</strong>: 
+              <a href="https://{{site.name}}{{school.district.get_absolute_url}}">{{school.district|title}}</a>
+            </p>
+          {% endif %}
+          {% if school.division %}
+            <p>
+              <strong>{% trans "Division" %}</strong>: 
+              <a href="https://{{site.name}}{{school.division.get_absolute_url}}">{{school.division|title}}</a>
+            </p>
+          {% endif %}
+          {% if school.location %}
+            <p>
+              <strong>{% trans "Location" %}</strong>: 
+              <a href="https://{{site.name}}{{school.location.get_absolute_url}}">{{school.location|title}}</a>
+            </p>
+          {% endif %}
+          {% if school.sub_location %}
+            <p>
+              <strong>{% trans "Sub Location" %}</strong>: 
+              <a href="https://{{site.name}}{{school.sub_location.get_absolute_url}}">{{school.sub_location|title}}</a>
+            </p>
+          {% endif %}
+          {% if school.School_zone %}
+            <p>
+              <strong>{% trans "School Zone" %}</strong>: 
+              <a href="https://{{site.name}}{{school.school_zone.get_absolute_url}}">{{school.school_zone|title}}</a>
+            </p>
+          {% endif %}
+
+          {% if school.staff %}
+            <h5>{% trans "Staff" %}</h5>
+            {% for staff in school.staff %}
+              <p>
+                <strong>{{staff.get_staff_type_display}}</strong>: {{staff.number}}
+              </p>
+            {% endfor %}
+          {% endif %}
+
+          <a href="https://{{site.name}}{{object.get_absolute_url}}" class="btn">{% trans "View map and search for more schools" %}</a>
+
+          {% if not DEBUG_MODE %}
+          <amp-ad width=300 height=250
+            type="adsense"
+            data-ad-client="ca-pub-4533628918380852"
+            data-ad-slot="2695613756">
+          </amp-ad>
+          {% endif %}
+        </div>
+
+      </section>
+      <div class="bottom-teaser cf">
+        <h5 class="index-headline featured"></h5>
+        <footer class="site-footer">
+          <section class=poweredby><p>&copy; {{ site.name }} {% now "Y" %} | <a href="/about/">About</a></p></section>
+        </footer>
+      </div>
+    </article>
+  </main>
+
+  {% if not DEBUG_MODE %}
+  <amp-analytics type="googleanalytics" id="analytics1">
+  <script type="application/json">
+  {
+    "vars": {
+      "account": "UA-36039405-4"
+    },
+    "triggers": {
+      "trackPageview": {
+        "on": "visible",
+        "request": "pageview"
+      }
+    }
+  }
+  </script>
+  </amp-analytics>
+  {% endif %}
+</body>
+</html>

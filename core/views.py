@@ -1,5 +1,6 @@
 from django.views.generic.list import ListView
 from django.conf import settings
+from django.http import HttpResponse
 
 from schools.models import School
 from kcse.utils import get_last_year

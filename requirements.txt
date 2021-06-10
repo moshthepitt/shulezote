@@ -1,4 +1,4 @@
-Django==1.8.15
+Django==2.2.24
 Whoosh==2.7.4
 argparse==1.2.1
 django-allauth==0.25.2
